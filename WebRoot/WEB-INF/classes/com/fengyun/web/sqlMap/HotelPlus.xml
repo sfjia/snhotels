@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelPlus">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelPlus" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_hotel_plus t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelPlus" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_plus t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="com.fengyun.web.model.HotelPlus" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_plus t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="hotelCode != null">and t.hotel_code = #{hotelCode} </if>
+			<if test="hotelName != null">and t.hotel_name = #{hotelName} </if>
+			<if test="hotelInfoWeb != null">and t.hotel_info_web = #{hotelInfoWeb} </if>
+			<if test="hotelInfoPad != null">and t.hotel_info_pad = #{hotelInfoPad} </if>
+			<if test="hotelInfoPhone != null">and t.hotel_info_phone = #{hotelInfoPhone} </if>
+			<if test="statusCode != null">and t.status_code = #{statusCode} </if>
+			<if test="createDatetime != null">and t.create_datetime = #{createDatetime} </if>
+			<if test="modifyDatetime != null">and t.modify_datetime = #{modifyDatetime} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelPlus" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_plus(
+			<if test="hotelCode != null">hotel_code, </if>
+			<if test="hotelName != null">hotel_name, </if>
+			<if test="hotelInfoWeb != null">hotel_info_web, </if>
+			<if test="hotelInfoPad != null">hotel_info_pad, </if>
+			<if test="hotelInfoPhone != null">hotel_info_phone, </if>
+			<if test="statusCode != null">status_code, </if>
+			<if test="modifyDatetime != null">modify_datetime, </if>
+			create_datetime
+		)values(
+			<if test="hotelCode != null">#{ hotelCode}, </if>
+			<if test="hotelName != null">#{ hotelName}, </if>
+			<if test="hotelInfoWeb != null">#{ hotelInfoWeb}, </if>
+			<if test="hotelInfoPad != null">#{ hotelInfoPad}, </if>
+			<if test="hotelInfoPhone != null">#{ hotelInfoPhone}, </if>
+			<if test="statusCode != null">#{ statusCode}, </if>
+			<if test="modifyDatetime != null">#{ modifyDatetime}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelPlus" >
+		update
+			fy_ws_hotel_plus
+		<set>
+			<if test="hotelCode != null">hotel_code = #{hotelCode},			</if>
+			<if test="hotelName != null">hotel_name = #{hotelName},			</if>
+			<if test="hotelInfoWeb != null">hotel_info_web = #{hotelInfoWeb},			</if>
+			<if test="hotelInfoPad != null">hotel_info_pad = #{hotelInfoPad},			</if>
+			<if test="hotelInfoPhone != null">hotel_info_phone = #{hotelInfoPhone},			</if>
+			<if test="statusCode != null">status_code = #{statusCode},			</if>
+			<if test="createDatetime != null">create_datetime = #{createDatetime},			</if>
+				modify_datetime = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

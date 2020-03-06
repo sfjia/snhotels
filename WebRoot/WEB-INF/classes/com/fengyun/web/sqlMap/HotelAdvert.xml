@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelAdvert">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelAdvert" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_hotel_advert t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelAdvert" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_advert t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_advert t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="queryListByObject" resultType="com.fengyun.web.model.HotelAdvert"   parameterType="com.fengyun.web.model.HotelAdvert">
+		select t.* from fy_ws_hotel_advert t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="classifyId != null">and t.classify_id = #{classifyId} </if>
+			<if test="titleCn != null">and t.title_cn = #{titleCn} </if>
+			<if test="titleEn != null">and t.title_en = #{titleEn} </if>
+			<if test="summaryCn != null">and t.summary_cn = #{summaryCn} </if>
+			<if test="summaryEn != null">and t.summary_en = #{summaryEn} </if>
+			<if test="image != null">and t.image = #{image} </if>
+			<if test="linkeUrl != null">and t.linke_url = #{linkeUrl} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelAdvert" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_advert(
+			<if test="classifyId != null">classify_id, </if>
+			<if test="titleCn != null">title_cn, </if>
+			<if test="titleEn != null">title_en, </if>
+			<if test="summaryCn != null">summary_cn, </if>
+			<if test="summaryEn != null">summary_en, </if>
+			<if test="image != null">image, </if>
+			<if test="linkeUrl != null">linke_url, </if>
+			<if test="status != null">status, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="sort != null">sort, </if>
+			create_date
+		)values(
+			<if test="classifyId != null">#{ classifyId}, </if>
+			<if test="titleCn != null">#{ titleCn}, </if>
+			<if test="titleEn != null">#{ titleEn}, </if>
+			<if test="summaryCn != null">#{ summaryCn}, </if>
+			<if test="summaryEn != null">#{ summaryEn}, </if>
+			<if test="image != null">#{ image}, </if>
+			<if test="linkeUrl != null">#{ linkeUrl}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelAdvert" >
+		update
+			fy_ws_hotel_advert
+		<set>
+			<if test="classifyId != null">classify_id = #{classifyId},</if>
+			<if test="titleCn != null">title_cn = #{titleCn},</if>
+			<if test="titleEn != null">title_en = #{titleEn},</if>
+			<if test="summaryCn != null">summary_cn = #{summaryCn},</if>
+			<if test="summaryEn != null">summary_en = #{summaryEn},</if>
+			<if test="image != null">image = #{image},</if>
+			<if test="linkeUrl != null">linke_url = #{linkeUrl},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="sort != null">sort = #{sort},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>	
+	<update id="deleteObjectById" parameterType="java.lang.Long" >
+			update fy_ws_hotel_advert set status = 0 where id = #{id}
+	</update>
+</mapper>
+

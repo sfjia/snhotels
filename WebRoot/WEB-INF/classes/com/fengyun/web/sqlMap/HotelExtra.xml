@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelExtra">
+
+	<select id="queryById" resultType="com.fengyun.web.model.HotelExtra"
+		parameterType="java.lang.Long">
+		select t.* from fy_ws_hotel_extra t where t.id=#{id}
+	</select>
+
+	<select id="queryAllList" resultType="com.fengyun.web.model.HotelExtra">
+		select t.* from
+		fy_ws_hotel_extra t
+	</select>
+
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelExtra"
+		parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_extra t
+		<include refid="queryWhere" />
+		<include refid="queryOrder" />
+		<include refid="queryLimit" />
+	</select>
+
+	<select id="queryCountByMap" resultType="com.fengyun.web.model.HotelExtra"
+		parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_extra t
+		<include refid="queryWhere" />
+	</select>
+
+	<sql id="queryWhere">
+		<where>
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="remark != null">and t.remark = #{remark} </if>
+			<if test="type != null">and t.type = #{type} </if>
+			<if test="parent != null">and t.parent = #{parent} </if>
+			<if test="level != null">and t.level = #{level} </if>
+			<if test="statusCodestatusCode != null">and t.status_codeSTATUS_CODE = #{statusCodestatusCode}
+			</if>
+			<if test="createDatetime != null">and t.create_datetime = #{createDatetime} </if>
+			<if test="modifyDatetime != null">and t.modify_datetime = #{modifyDatetime} </if>
+		</where>
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+
+
+
+
+	<insert id="insertObject" parameterType="com.fengyun.web.model.HotelExtra"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into fy_ws_hotel_extra(
+		<if test="name != null">name, </if>
+		<if test="remark != null">remark, </if>
+		<if test="type != null">type, </if>
+		<if test="parent != null">parent, </if>
+		<if test="level != null">level, </if>
+		<if test="statusCodestatusCode != null">status_codeSTATUS_CODE, </if>
+		<if test="modifyDatetime != null">modify_datetime, </if>
+		create_datetime
+		)values(
+		<if test="name != null">#{ name}, </if>
+		<if test="remark != null">#{ remark}, </if>
+		<if test="type != null">#{ type}, </if>
+		<if test="parent != null">#{ parent}, </if>
+		<if test="level != null">#{ level}, </if>
+		<if test="statusCodestatusCode != null">#{ statusCodestatusCode}, </if>
+		<if test="modifyDatetime != null">#{ modifyDatetime}, </if>
+		now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelExtra">
+		update
+		fy_ws_hotel_extra
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="parent != null">parent = #{parent},</if>
+			<if test="level != null">level = #{level},</if>
+			<if test="statusCodestatusCode != null">status_codeSTATUS_CODE = #{statusCodestatusCode},</if>
+			<if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+			modify_datetime = now()
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteExtra" parameterType="java.lang.Integer">
+		delete from
+		fy_ws_hotel_extra where id = #{id} or parent = #{id}
+	</delete>
+
+</mapper>
+

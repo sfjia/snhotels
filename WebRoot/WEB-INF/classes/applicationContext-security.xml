@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.4.xsd"
+       default-lazy-init="true">
+       
+	  <!-- <bean id="httpSessionContextIntegrationFilter" class="org.springframework.security.context.HttpSessionContextIntegrationFilter"/>  
+	  <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter"/> -->
+	 
+		<sec:http auto-config="true" servlet-api-provision="false" access-denied-page="/template/error_page_access_denied.html">
+		<sec:form-login login-page="/admin/index.jsp" 
+			login-processing-url="/admin/login/check" 
+			default-target-url="/admin/login2.htm" 
+			authentication-failure-url="/admin/index.jsp" 
+			always-use-default-target="true"  />
+		<sec:logout invalidate-session="true" logout-success-url="/admin/index.jsp" logout-url="/admin/logout" />
+		
+		<!-- 后台登录 -->
+		<sec:intercept-url pattern="/admin/index.jsp" filters="none" />
+		<sec:intercept-url pattern="/admin/login2.htm" access="ROLE_BASE" />
+		
+		                              <!-- 酒店管理 Start  --> 
+		                                                                       
+			<!-- 子酒店添加 -->
+			<sec:intercept-url pattern="/hotelManage/hotelAdditiveList.htm*" access="ROLE_HOTELADDITIVE_ZJD" />
+			<!-- 酒店信息管理 -->
+			<sec:intercept-url pattern="/hotel/hotelList.htm*" access="ROLE_HOTELINFO_ZJD" />
+			<!-- 酒店点评管理 -->
+			<sec:intercept-url pattern="/hotel/reviewList.htm*" access="ROLE_REVIEW_ZJD" />
+			
+			<!-- 入住要求 -->
+			<sec:intercept-url pattern="/roomColumn/roomArticleList.htm*" access="ROLE_ROOMARTICLE_ZJD" />
+			<!-- 客房代码管理-->
+			<sec:intercept-url pattern="/room/roomCodeList.htm*" access="ROLE_ROOMCODE_ZJD" />
+		                              <!--  酒店管理 End   -->      
+		                                                                 
+		
+		                               <!--优惠精选 Start   -->                                                             
+			<!-- 优惠精选列表 -->
+			<sec:intercept-url pattern="/promotion/promotionList.htm*" access="ROLE_PROMOTION_YHJX" />
+			<!--优惠卷管理 -->
+			<sec:intercept-url pattern="/coupon/couponList.htm*" access="ROLE_COUPON_YHJX" />
+										<!-- 优惠精选 End -->
+		
+		
+		              				 <!-- 旅游渡假 Start    -->                               
+			<!-- 旅游渡假列表 -->
+			<sec:intercept-url pattern="/travel/travelList.htm*" access="ROLE_TRAVEL_LYDJ" />
+		                         		<!--旅游渡假 End  -->                                     
+		
+		
+		              				 <!-- 会员管理 Start    -->                               
+			<!-- 会员列表 -->
+			<sec:intercept-url pattern="/houtaiUser/userList.htm*" access="ROLE_HOTTAIUSER_HY" />
+			<!-- 生日筛选 -->
+			<sec:intercept-url pattern="/user/searchUserList.htm*" access="ROLE_SEARCHUSER_HY" />
+		                         		<!--会员管理 End  -->       
+		                         		                              
+		              				 	<!--订单管理 Start-->                             
+			<!-- 订单列表 -->
+			<sec:intercept-url pattern="/order/orderList.htm*" access="ROLE_ORDER_DD" />
+		                         		<!--订单管理 End  -->                                     
+		
+		                              <!-- 内容管理 Start  -->                                          
+			<!-- 悦廷会-->
+			<sec:intercept-url pattern="/hotelChannel/yueChannelList.htm*"  access="ROLE_YUECHANNEL_NR" />
+			<!-- 关于远洲 -->
+			<sec:intercept-url pattern="/hotelChannel/aboutChannelList.htm*"   access="ROLE_ABOUTCHANNEL_NR" />
+			<!-- 广告列表 -->
+			<sec:intercept-url pattern="/hotelClassify/hotelClassifyList.htm*" access="ROLE_HOTELCLASSIFY_NR" />
+		                              <!--  内容管理 End   -->   
+		                              
+		                              
+		              				 <!-- 管理员管理 Start    -->                               
+			<!-- 管理员管理 -->
+			<sec:intercept-url pattern="/admin/adminList.htm*" access="ROLE_ADMIN_GLY"/> 
+			<!-- 角色管理 -->
+			<sec:intercept-url pattern="/role/roleList*" access="ROLE_ROLE_GLY" /> 
+		                         		<!--管理员管理 End  -->       
+		                              
+		
+					
+		<!-- 基础管理权限 -->
+		<sec:intercept-url pattern="/admin/**.htm" access="ROLE_BASE" />
+	</sec:http>
+
+
+	<sec:authentication-provider user-service-ref="adminDetailsServiceImpl">
+		<sec:password-encoder hash="md5" />
+	</sec:authentication-provider>
+</beans> 

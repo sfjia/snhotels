@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Area">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.Area" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_area t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.Area" parameterType="java.util.Map">
+		select t.* from fy_ws_area t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_area t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="nid != null">and t.nid = #{nid} </if>
+			<if test="pid != null">and t.pid = #{pid} </if>
+			<if test="domain != null">and t.domain = #{domain} </if>
+			<if test="orderList != null">and t.order_list = #{orderList} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.Area" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_area(
+			<if test="name != null">name, </if>
+			<if test="nid != null">nid, </if>
+			<if test="pid != null">pid, </if>
+			<if test="domain != null">domain, </if>
+			<if test="orderList != null">order_list, </if>
+			create_date
+		)values(
+			<if test="name != null">#{ name}, </if>
+			<if test="nid != null">#{ nid}, </if>
+			<if test="pid != null">#{ pid}, </if>
+			<if test="domain != null">#{ domain}, </if>
+			<if test="orderList != null">#{ orderList}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.Area" >
+		update
+			fy_ws_area
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="nid != null">nid = #{nid},</if>
+			<if test="pid != null">pid = #{pid},</if>
+			<if test="domain != null">domain = #{domain},</if>
+			<if test="orderList != null">order_list = #{orderList},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+		<select id="getRootAreaList" resultType ="com.fengyun.web.model.Area" >
+		select * from fy_ws_area where pid is null order by order_list asc
+	</select>
+	
+	<select id="getParentAreaList" resultType ="com.fengyun.web.model.Area" >
+		select * from fy_ws_area where id in
+		<foreach collection="area.domain" item="ids"  open="(" separator="," close=")">  
+            #{ids} 
+         </foreach>
+	</select>
+	
+	<select id="getChildrenAreaList" resultType ="com.fengyun.web.model.Area"  parameterType = "string" >
+		select * from fy_ws_area where pid = #{id,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="getAreaDomain" resultType ="string"  parameterType = "string" >
+		select domain from fy_ws_area where id = #{id,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="getAreaName" resultType ="string"  parameterType = "string" >
+		select name from fy_ws_area where id = #{id,jdbcType=INTEGER} 
+	</select>
+	
+</mapper>
+

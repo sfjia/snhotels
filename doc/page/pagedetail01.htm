@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>系统设置</title>
+<link rel="icon" href="http://www.hua3d.com:8088/admin/favicon.ico" type="image/x-icon">
+<link href="./css/base.css" rel="stylesheet" type="text/css">
+<link href="./css/admin.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.tools.js"></script>
+<script type="text/javascript" src="./js/jquery.validate.js"></script>
+<script type="text/javascript" src="./js/jquery.validate.methods.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/admin.js"></script>
+<script type="text/javascript">
+$().ready(function() {
+
+
+	var $tab = $("#tab");
+	// Tab效果
+	$tab.tabs(".tabContent", {
+		tabs: "input"
+	});
+	
+
+	
+})
+</script>
+</head>
+<body class="input">
+	<div class="bar">
+		系统设置
+	</div>
+	<div id="validateErrorContainer" class="validateErrorContainer">
+		<div class="validateErrorTitle">以下信息填写有误,请重新填写</div>
+		<ul></ul>
+	</div>
+	<div class="body">
+		<form id="validateForm" class="form" action="setting!update.action" enctype="multipart/form-data" method="post">
+		<div class="index">
+		<table class="listTable">
+			<tr>
+				<th style="width:150px;text-align:right;">
+					标题: 
+				</th>
+				<td>
+					<input  class="formText" value="" type="text">
+					<label class="requireField">*</label>
+				</td>
+			</tr>
+			<tr>
+				<th style="width:150px;text-align:right;">
+					发布: 
+				</th>
+				<td>
+					<input type="checkbox" >网站
+					<input type="checkbox" >PAD
+					<input type="checkbox" >APP
+					<input type="checkbox" >WAP
+				</td>
+			</tr>
+		</table>
+		</div>
+		
+		<input name="id" value="1" type="hidden">
+			<ul id="tab" class="tab">
+				<li>
+					<input class="current" value="网站" hidefocus="" type="button">
+				</li>
+				<li>
+					<input value="PAD" hidefocus="" type="button">
+				</li>
+				<li>
+					<input value="APP" hidefocus="" type="button">
+				</li>
+				<li>
+					<input value="WAp" hidefocus="" type="button">
+				</li>
+			</ul>
+			<table style="display: table;" class="inputTable tabContent">
+				<tbody><tr>
+					<th>
+						图片: 
+					</th>
+					<td>
+						<input name="logo" type="file">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						简介: 
+					</th>
+					<td>
+						<input name="setting.companyName" class="formText" value="杭州卡趣电子商务有限公司" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						详情: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="http://127.0.0.1:8090/qmd" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						有效日期: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="" type="text">-<input name="setting.url" class="formText" value="" type="text">
+					</td>
+				</tr>
+				
+			</tbody></table>
+			<table style="display: none;" class="inputTable tabContent">
+				<tbody><tr>
+					<th>
+						图片: 
+					</th>
+					<td>
+						<input name="logo" type="file">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						简介: 
+					</th>
+					<td>
+						<input name="setting.companyName" class="formText" value="杭州卡趣电子商务有限公司" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						详情: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="http://127.0.0.1:8090/qmd" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						有效日期: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="" type="text">-<input name="setting.url" class="formText" value="" type="text">
+					</td>
+				</tr>
+				
+			</tbody></table>
+			<table style="display: none;" class="inputTable tabContent">
+				<tbody><tr>
+					<th>
+						图片: 
+					</th>
+					<td>
+						<input name="logo" type="file">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						简介: 
+					</th>
+					<td>
+						<input name="setting.companyName" class="formText" value="杭州卡趣电子商务有限公司" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						详情: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="http://127.0.0.1:8090/qmd" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						有效日期: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="" type="text">-<input name="setting.url" class="formText" value="" type="text">
+					</td>
+				</tr>
+				
+			</tbody></table>
+			<table style="display: none;" class="inputTable tabContent">
+				<tbody><tr>
+					<th>
+						图片: 
+					</th>
+					<td>
+						<input name="logo" type="file">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						简介: 
+					</th>
+					<td>
+						<input name="setting.companyName" class="formText" value="杭州卡趣电子商务有限公司" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						详情: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="http://127.0.0.1:8090/qmd" type="text">
+						<label class="requireField">*</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						有效日期: 
+					</th>
+					<td>
+						<input name="setting.url" class="formText" value="" type="text">-<input name="setting.url" class="formText" value="" type="text">
+					</td>
+				</tr>
+				
+			</tbody></table>
+			<div class="buttonArea">
+				<input class="formButton" value="确  定" hidefocus="" type="submit">&nbsp;&nbsp;
+				<input class="formButton" onclick="window.history.back(); return false;" value="返  回" hidefocus="" type="button">
+			</div>
+		</form>
+	</div>
+
+</body></html>

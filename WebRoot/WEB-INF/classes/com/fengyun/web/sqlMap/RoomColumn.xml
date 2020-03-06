@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RoomColumn">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.RoomColumn" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_room_column t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.RoomColumn" parameterType="java.util.Map">
+		select t.* from fy_ws_room_column t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	
+	<select id="queryAllList" resultType="com.fengyun.web.model.RoomColumn" >
+		select t.* from fy_ws_room_column t 
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_room_column t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="type != null">and t.type = #{type} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.RoomColumn" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_room_column(
+			<if test="name != null">name, </if>
+			<if test="type != null">type, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			create_date
+		)values(
+			<if test="name != null">#{ name}, </if>
+			<if test="type != null">#{ type}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.RoomColumn" >
+		update
+			fy_ws_room_column
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+	<delete id="deleteObjectById"  parameterType = "java.lang.Long">
+		delete  from fy_ws_room_column  where id=#{id}
+	</delete>
+	
+</mapper>
+

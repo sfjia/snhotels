@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Coupon">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.Coupon" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_coupon t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.Coupon" parameterType="java.util.Map">
+		select t.*,a.title_cn promotion_title from fy_ws_coupon t left join fy_ws_promotion a on a.id=t.promotion_id
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	<select id="queryListByObject" resultType="com.fengyun.web.model.Coupon"   parameterType="com.fengyun.web.model.Coupon">
+		select t.* from fy_ws_coupon t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_coupon t left join fy_ws_promotion a on a.id=t.promotion_id
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="promotionId != null">and t.promotion_id = #{promotionId} </if>
+			<if test="phone != null">and t.phone = #{phone} </if>
+			<if test="isAcquire != null">and t.is_acquire = #{isAcquire} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.Coupon" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_coupon(
+			<if test="promotionId != null">promotion_id, </if>
+			<if test="phone != null">phone, </if>
+			<if test="isAcquire != null">is_acquire, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			create_date
+		)values(
+			<if test="promotionId != null">#{ promotionId}, </if>
+			<if test="phone != null">#{ phone}, </if>
+			<if test="isAcquire != null">#{ isAcquire}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.Coupon" >
+		update
+			fy_ws_coupon
+		<set>
+			<if test="promotionId != null">promotion_id = #{promotionId},</if>
+			<if test="phone != null">phone = #{phone},</if>
+			<if test="isAcquire != null">is_acquire = #{isAcquire},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

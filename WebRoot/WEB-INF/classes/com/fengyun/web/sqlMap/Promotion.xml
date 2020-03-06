@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Promotion">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.Promotion" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_promotion t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.Promotion" parameterType="java.util.Map">
+		select t.* from fy_ws_promotion t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	
+	<select id="queryListByObject" resultType="com.fengyun.web.model.Promotion"   parameterType="com.fengyun.web.model.Promotion">
+		select t.* from fy_ws_promotion t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_promotion t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="titleCn != null">and t.title_cn = #{titleCn} </if>
+			<if test="titleEn != null">and t.title_en = #{titleEn} </if>
+			<if test="image != null">and t.image = #{image} </if>
+			<if test="digestCn != null">and t.digest_cn = #{digestCn} </if>
+			<if test="digestEn != null">and t.digest_en = #{digestEn} </if>
+			<if test="contentCn != null">and t.content_cn = #{contentCn} </if>
+			<if test="contentEn != null">and t.content_en = #{contentEn} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="bookTell != null">and t.book_tell = #{bookTell} </if>
+			<if test="beginDatetime != null">and t.begin_datetime = #{beginDatetime} </if>
+			<if test="endDatetime != null">and t.end_datetime = #{endDatetime} </if>
+			<if test="createDatetime != null">and t.create_datetime = #{createDatetime} </if>
+			<if test="modifyDatetime != null">and t.modify_datetime = #{modifyDatetime} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+			<if test="showFlg != null">and t.show_flg = #{showFlg} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.Promotion" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_promotion(
+			<if test="titleCn != null">title_cn, </if>
+			<if test="titleEn != null">title_en, </if>
+			<if test="image != null">image, </if>
+			<if test="digestCn != null">digest_cn, </if>
+			<if test="digestEn != null">digest_en, </if>
+			<if test="contentCn != null">content_cn, </if>
+			<if test="contentEn != null">content_en, </if>
+			<if test="status != null">status, </if>
+			<if test="bookTell != null">book_tell, </if>
+			<if test="beginDatetime != null">begin_datetime, </if>
+			<if test="endDatetime != null">end_datetime, </if>
+			<if test="createDatetime != null">create_datetime, </if>
+			<if test="modifyDatetime != null">modify_datetime, </if>
+			<if test="sort != null">sort, </if>
+			<if test="showFlg != null">show_flg, </if>
+			create_datetime
+		)values(
+			<if test="titleCn != null">#{ titleCn}, </if>
+			<if test="titleEn != null">#{ titleEn}, </if>
+			<if test="image != null">#{ image}, </if>
+			<if test="digestCn != null">#{ digestCn}, </if>
+			<if test="digestEn != null">#{ digestEn}, </if>
+			<if test="contentCn != null">#{ contentCn}, </if>
+			<if test="contentEn != null">#{ contentEn}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="bookTell != null">#{ bookTell}, </if>
+			<if test="beginDatetime != null">#{ beginDatetime}, </if>
+			<if test="endDatetime != null">#{ endDatetime}, </if>
+			<if test="createDatetime != null">#{ createDatetime}, </if>
+			<if test="modifyDatetime != null">#{ modifyDatetime}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			<if test="showFlg != null">#{ showFlg}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.Promotion" >
+		update
+			fy_ws_promotion
+		<set>
+			<if test="titleCn != null">title_cn = #{titleCn},</if>
+			<if test="titleEn != null">title_en = #{titleEn},</if>
+			<if test="image != null">image = #{image},</if>
+			<if test="digestCn != null">digest_cn = #{digestCn},</if>
+			<if test="digestEn != null">digest_en = #{digestEn},</if>
+			<if test="contentCn != null">content_cn = #{contentCn},</if>
+			<if test="contentEn != null">content_en = #{contentEn},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="bookTell != null">book_tell = #{bookTell},</if>
+			<if test="beginDatetime != null">begin_datetime = #{beginDatetime},</if>
+			<if test="endDatetime != null">end_datetime = #{endDatetime},</if>
+			<if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+			<if test="modifyDatetime != null">modify_datetime = #{modifyDatetime},</if>
+			<if test="sort != null">sort = #{sort},</if>
+			<if test="showFlg != null">show_flg = #{showFlg},</if>
+				modify_datetime = now()
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="deleteObjectById" parameterType="java.lang.Long" >
+			update fy_ws_promotion set status = 0 where id = #{id}
+	</update>
+	
+</mapper>
+

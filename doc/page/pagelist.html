@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>		发标待审 </title>
+<link rel="icon" href="http://www.hua3d.com:8088/admin/favicon.ico" type="image/x-icon">
+<link href="./css/base.css" rel="stylesheet" type="text/css">
+<link href="./css/admin.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/admin.js"></script>
+
+</head>
+<body class="list">
+	<div class="bar">
+				发标待审
+		标列表&nbsp;总记录数: 5 (共1页)
+	</div>
+	<div class="body">
+		<form id="listForm" action="borrow!list.action" method="post">
+		<input name="borrow.status" id="status" value="0" type="hidden">
+		<input name="borrow.id" type="hidden">
+			<div class="listBar">
+				<label>用户名：</label><input name="borrow.user.username" id="username" type="text">
+				<label>标类型：</label>
+				 <select name="borrow.type" id="type"><option value="" selected="selected">全部</option>
+				<option value="1">天标</option>
+				<option value="0">秒标</option>
+				<option value="2">流转标</option>
+				<option value="3">信用标</option>
+				<option value="4">月标</option>
+				<option value="4">流转标</option>
+				</select>
+				<input id="searchButton" class="formButton" value="搜 索" hidefocus="" type="button">
+				&nbsp;&nbsp;
+				<label>每页显示: </label>
+				<select name="pager.pageSize" id="pageSize">
+					<option value="10">
+						10
+					</option>
+					<option value="20" selected="selected">
+						20
+					</option>
+					<option value="50">
+						50
+					</option>
+					<option value="100">
+						100
+					</option>
+				</select>
+			</div>
+			<table id="listTable" class="listTable">
+				<tbody><tr>
+					<th>
+						<a href="#" class="sort" name="id" hidefocus="">ID</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="id" hidefocus="">排序号</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="user.username" hidefocus="">用户名</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="name" hidefocus="">借款标题</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="account" hidefocus="">借款金额</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="apr" hidefocus="">利率</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="timeLimit" hidefocus="">借款期限</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="type" hidefocus="">借款类型</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="status" hidefocus="">状态</a>
+					</th>
+					
+					<th>
+						<span>操作</span>
+					</th>
+				</tr>
+					<tr>
+						
+						<td>
+							103
+						</td>
+						<td>
+							1000
+						</td>
+						<td>
+							test501
+						</td>
+						<td>
+							流转标0822A
+						</td>
+						<td>
+							10000元
+						</td>
+						<td>
+						0.1
+							‰(天利息）
+						</td>
+						<td>
+							30天
+						</td>
+						<td>
+							 流转标
+													</td>
+						<td>
+							 等待审核
+													</td>
+							
+						<td>
+						
+							<a href="http://www.hua3d.com:8088/admin/borrow%21edit.action?id=103" title="[审核]"><font color="red">[审核]</font></a>
+							<a href="http://www.hua3d.com:8088/admin/borrow%21updateContent.action?id=103" title="[修改]"><font color="green">[修改]</font></a>
+							<a href="javascript:void(0);" class="deleteBank" id="103" title="[撤回]">[撤回]</a>
+							
+						</td>
+					</tr>
+					<tr>
+						
+						<td>
+							101
+						</td>
+						<td>
+							1000
+						</td>
+						<td>
+							test107
+						</td>
+						<td>
+							流转标0814F
+						</td>
+						<td>
+							10000元
+						</td>
+						<td>
+						0.1
+							‰(天利息）
+						</td>
+						<td>
+							10天
+						</td>
+						<td>
+							 流转标
+													</td>
+						<td>
+							 等待审核
+													</td>
+							
+						<td>
+						
+							<a href="http://www.hua3d.com:8088/admin/borrow%21edit.action?id=101" title="[审核]"><font color="red">[审核]</font></a>
+							<a href="http://www.hua3d.com:8088/admin/borrow%21updateContent.action?id=101" title="[修改]"><font color="green">[修改]</font></a>
+							<a href="javascript:void(0);" class="deleteBank" id="101" title="[撤回]">[撤回]</a>
+							
+						</td>
+					</tr>
+					<tr>
+						
+						<td>
+							100
+						</td>
+						<td>
+							1000
+						</td>
+						<td>
+							test107
+						</td>
+						<td>
+							流转标0814E
+						</td>
+						<td>
+							10000元
+						</td>
+						<td>
+						0.1
+							‰(天利息）
+						</td>
+						<td>
+							15天
+						</td>
+						<td>
+							 流转标
+													</td>
+						<td>
+							 等待审核
+													</td>
+							
+						<td>
+						
+							<a href="http://www.hua3d.com:8088/admin/borrow%21edit.action?id=100" title="[审核]"><font color="red">[审核]</font></a>
+							<a href="http://www.hua3d.com:8088/admin/borrow%21updateContent.action?id=100" title="[修改]"><font color="green">[修改]</font></a>
+							<a href="javascript:void(0);" class="deleteBank" id="100" title="[撤回]">[撤回]</a>
+							
+						</td>
+					</tr>
+					<tr>
+						
+						<td>
+							99
+						</td>
+						<td>
+							1000
+						</td>
+						<td>
+							test107
+						</td>
+						<td>
+							流转标0814D
+						</td>
+						<td>
+							10000元
+						</td>
+						<td>
+						0.1
+							‰(天利息）
+						</td>
+						<td>
+							30天
+						</td>
+						<td>
+							 流转标
+													</td>
+						<td>
+							 等待审核
+													</td>
+							
+						<td>
+						
+							<a href="http://www.hua3d.com:8088/admin/borrow%21edit.action?id=99" title="[审核]"><font color="red">[审核]</font></a>
+							<a href="http://www.hua3d.com:8088/admin/borrow%21updateContent.action?id=99" title="[修改]"><font color="green">[修改]</font></a>
+							<a href="javascript:void(0);" class="deleteBank" id="99" title="[撤回]">[撤回]</a>
+							
+						</td>
+					</tr>
+					<tr>
+						
+						<td>
+							98
+						</td>
+						<td>
+							1000
+						</td>
+						<td>
+							test107
+						</td>
+						<td>
+							流转标0814C
+						</td>
+						<td>
+							10000元
+						</td>
+						<td>
+						0.1
+							‰(天利息）
+						</td>
+						<td>
+							20天
+						</td>
+						<td>
+							 流转标
+													</td>
+						<td>
+							 等待审核
+													</td>
+							
+						<td>
+						
+							<a href="http://www.hua3d.com:8088/admin/borrow%21edit.action?id=98" title="[审核]"><font color="red">[审核]</font></a>
+							<a href="http://www.hua3d.com:8088/admin/borrow%21updateContent.action?id=98" title="[修改]"><font color="green">[修改]</font></a>
+							<a href="javascript:void(0);" class="deleteBank" id="98" title="[撤回]">[撤回]</a>
+							
+						</td>
+					</tr>
+			</tbody></table>
+					<div class="pager">
+<script type="text/javascript">
+$().ready( function() {
+	
+	var $pager = $("#pager");
+	
+	$pager.pager({
+		pagenumber: 1,
+		pagecount: 1,
+		buttonClickCallback: $.gotoPage
+	});
+
+})
+</script>
+<span id="pager"><ul class="pages"><li class="pgNext pgEmpty">首页</li><li class="pgNext pgEmpty">上一页</li><li class="page-number pgCurrent">1</li><li class="pgNext pgEmpty">下一页</li><li class="pgNext pgEmpty">末页</li></ul></span>
+<input name="pager.pageNumber" id="pageNumber" value="1" type="hidden">
+<input name="pager.orderBy" id="orderBy" value="createDate" type="hidden">
+<input name="pager.order" id="order" value="desc" type="hidden">					</div>
+				<div>
+		
+			
+	</div></form>
+
+
+<script type="text/javascript">
+	$().ready( function() {
+		$deleteBank = $(".deleteBank");
+		$deleteBank.click(function(){
+			$this=$(this);
+			$.dialog({type: "warn", content: "确认要撤回此标吗？", ok: "确 定", cancel: "取 消", modal: true, okCallback:right});
+			function right(){
+				$.ajax({
+					url: "/admin/borrow!withdraw.action",
+					data: {"id":$this.attr("id")},
+					type: "POST",
+					dataType: "json",
+					cache: false,
+						success: function(data) {
+						//$.message({type: data.status, content: data.message});
+						if(data.status=="success"){
+							//$this.parent().parent().remove();
+							alert("撤回成功！");
+							window.location.reload();
+						} else {
+							alert(data.message);
+							return;
+						}
+					}
+				});
+			}
+		});
+		
+		
+		});
+ </script>
+</div></body></html>

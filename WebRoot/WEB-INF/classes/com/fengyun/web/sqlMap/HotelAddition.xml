@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelAddition">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelAddition" parameterType = "java.lang.Integer">
+		select t.*,a.name hotel_name from fy_ws_hotel_addition t left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code where t.id=#{id}
+	</select>
+	<select id="queryByMap" resultType ="com.fengyun.web.model.HotelAddition" parameterType = "java.util.Map">
+		select t.*,a.name hotel_name from fy_ws_hotel_addition t left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code 
+    	<include refid="queryWhere"/>
+	</select>
+
+	<select id="queryAllList" resultType="com.fengyun.web.model.HotelAddition" >
+		select t.*,a.name hotel_name from fy_ws_hotel_addition t left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelAddition" parameterType="java.util.Map">
+		select t.*,a.name hotel_name from fy_ws_hotel_addition t left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_addition t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="hotelCode != null">and t.hotel_code = #{hotelCode} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="note != null">and t.note = #{note} </if>
+			<if test="noteEn != null">and t.note_en = #{noteEn} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+			<if test="linkUrl != null">and t.link_url = #{linkUrl} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelAddition" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_addition(
+			<if test="hotelCode != null">hotel_code, </if>
+			<if test="name != null">name, </if>
+			<if test="note != null">note, </if>
+			<if test="noteEn != null">note_en, </if>
+			<if test="status != null">status, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="sort != null">sort, </if>
+			<if test="linkUrl != null">link_url, </if>
+			create_date
+		)values(
+			<if test="hotelCode != null">#{ hotelCode}, </if>
+			<if test="name != null">#{ name}, </if>
+			<if test="note != null">#{ note}, </if>
+			<if test="noteEn != null">#{ noteEn}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			<if test="linkUrl != null">#{ linkUrl}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelAddition" >
+		update
+			fy_ws_hotel_addition
+		<set>
+			<if test="hotelCode != null">hotel_code = #{hotelCode},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="note != null">note = #{note},</if>
+			<if test="noteEn != null">note_en = #{noteEn},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="sort != null">sort = #{sort},</if>
+			<if test="linkUrl != null">link_url = #{linkUrl},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

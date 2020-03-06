@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shopxx>
+	<description>配置文件</description>
+	<setting>
+		<systemName>网贷平台</systemName>
+		<systemVersion>1.0</systemVersion>
+		<systemDescription>质押型网络借贷第三方中介服务平台系统 </systemDescription>
+		<contextPath></contextPath>
+		<imageUploadPath>/upload/image/{date(yyyyMM)}</imageUploadPath>
+		<imageBrowsePath>/upload/image</imageBrowsePath>
+		<imageUploadBasePath>E:/upload</imageUploadBasePath>
+		<adminLoginUrl>/admin/index.jsp</adminLoginUrl>
+		<adminLoginProcessingUrl>/admin/login/check</adminLoginProcessingUrl>
+		<isShowPoweredInfo>true</isShowPoweredInfo>
+		<shopName>红色贷</shopName>
+		<shopUrl>http://www.web.com</shopUrl>
+		<shopImgContext>/upimg</shopImgContext>
+		<shopImgEncodeUrl>/index.img?image=</shopImgEncodeUrl>
+		<shopLogoPath>/images/logo.jpg</shopLogoPath>
+		<hotSearch>热搜</hotSearch>
+		<metaKeywords>红色贷</metaKeywords>
+		<metaDescription>红色贷</metaDescription>
+		<address>杭州市</address>
+		<phone>400-8888888</phone>
+		<zipCode>400000</zipCode>
+		<email>fengyuntest@163.com</email>
+		<certtext>备案号</certtext>
+		<currencyType>CNY</currencyType>
+		<currencySign>￥</currencySign>
+		<currencyUnit>元</currencyUnit>
+		<priceScale>2</priceScale>
+		<priceRoundType>roundHalfUp</priceRoundType>
+		<storeAlertCount>5</storeAlertCount>
+		<storeFreezeTime>order</storeFreezeTime>
+		<uploadLimit>1024</uploadLimit>
+		<isLoginFailureLock>true</isLoginFailureLock>
+		<loginFailureLockCount>5</loginFailureLockCount>
+		<loginFailureLockTime>5</loginFailureLockTime>
+		<isRegisterEnabled>true</isRegisterEnabled>
+		<watermarkImagePath>/images/watermark.jpg</watermarkImagePath>
+		<watermarkPosition>bottomRight</watermarkPosition>
+		<watermarkAlpha>50</watermarkAlpha>
+		<bigGoodsImageWidth>500</bigGoodsImageWidth>
+		<bigGoodsImageHeight>500</bigGoodsImageHeight>
+		<smallGoodsImageWidth>300</smallGoodsImageWidth>
+		<smallGoodsImageHeight>300</smallGoodsImageHeight>
+		<thumbnailGoodsImageWidth>140</thumbnailGoodsImageWidth>
+		<thumbnailGoodsImageHeight>140</thumbnailGoodsImageHeight>
+		<defaultBigGoodsImagePath>/images/default_big_goods_image.jpg</defaultBigGoodsImagePath>
+		<defaultSmallGoodsImagePath>/images/default_small_goods_image.jpg</defaultSmallGoodsImagePath>
+		<defaultThumbnailGoodsImagePath>/images/default_thumbnail_goods_image.jpg</defaultThumbnailGoodsImagePath>
+		<isShowMarketPrice>true</isShowMarketPrice>
+		<defaultMarketPriceOperator>multiply</defaultMarketPriceOperator>
+		<defaultMarketPriceNumber>1.2</defaultMarketPriceNumber>
+		<smtpFromMail>fengyuntest@163.com</smtpFromMail>
+		<smtpHost>smtp.163.com</smtpHost>
+		<smtpPort>25</smtpPort>
+		<smtpUsername>fengyuntest@163.com</smtpUsername>
+		<smtpPassword>fengyun</smtpPassword>
+		<scoreType>orderAmount</scoreType>
+		<scoreScale>1</scoreScale>
+		<buildHtmlDelayTime>30</buildHtmlDelayTime>
+		<isGzipEnabled>false</isGzipEnabled>
+		<isInstantMessagingEnabled>true</isInstantMessagingEnabled>
+		<instantMessagingPosition>right</instantMessagingPosition>
+		<instantMessagingTitle>7 × 24小时服务</instantMessagingTitle>
+		<isLeaveMessageEnabled>true</isLeaveMessageEnabled>
+		<isLeaveMessageCaptchaEnabled>true</isLeaveMessageCaptchaEnabled>
+		<leaveMessageDisplayType>direct</leaveMessageDisplayType>
+		<isCommentEnabled>true</isCommentEnabled>
+		<isCommentCaptchaEnabled>true</isCommentCaptchaEnabled>
+		<commentAuthority>member</commentAuthority>
+		<commentDisplayType>direct</commentDisplayType>
+	</setting>
+
+	<!-- <logConfig>
+		<item operation="系统设置" actionClass="com.huashi.action.admin.SettingAction" actionMethod="update" />
+		
+		<item operation="添加管理员" actionClass="com.huashi.action.admin.AdminAction" actionMethod="save" />
+		<item operation="删除管理员" actionClass="com.huashi.action.admin.AdminAction" actionMethod="delete" />
+		<item operation="编辑管理员" actionClass="com.huashi.action.admin.AdminAction" actionMethod="update" />
+		
+		<item operation="添加会员" actionClass="com.huashi.action.admin.MemberAction" actionMethod="save" />
+		<item operation="删除会员" actionClass="com.huashi.action.admin.MemberAction" actionMethod="delete" />
+		<item operation="编辑会员" actionClass="com.huashi.action.admin.MemberAction" actionMethod="update" />		
+		
+		<item operation="添加文章分类" actionClass="com.huashi.action.admin.ArticleCategoryAction" actionMethod="save" />
+		<item operation="删除文章分类" actionClass="com.huashi.action.admin.ArticleCategoryAction" actionMethod="delete" />
+		<item operation="编辑文章分类" actionClass="com.huashi.action.admin.ArticleCategoryAction" actionMethod="update" />
+		
+		<item operation="添加文章" actionClass="com.huashi.action.admin.ArticleAction" actionMethod="save" />
+		<item operation="删除文章" actionClass="com.huashi.action.admin.ArticleAction" actionMethod="delete" />
+		<item operation="编辑文章" actionClass="com.huashi.action.admin.ArticleAction" actionMethod="update" />
+		
+		<item operation="审核线下充值记录" actionClass="com.huashi.action.admin.UserAccountRechargeAction" actionMethod="update" />
+		<item operation="补单操作" actionClass="com.huashi.action.admin.UserAccountRechargeAction" actionMethod="ajaxRepair" />
+		
+		<item operation="添加线下充值" actionClass="com.huashi.action.admin.AccountAction" actionMethod="rechargeDo" />
+		<item operation="【费用扣除/奖励】" actionClass="com.huashi.action.admin.RewardsAction" actionMethod="add" />
+		<item operation="审核【费用扣除/奖励】" actionClass="com.huashi.action.admin.RewardsAction" actionMethod="doVerify" />
+		
+		<item operation="用户审核操作" actionClass="com.huashi.action.admin.UserAction" actionMethod="verifycheck" />
+		<item operation="审核线下投资/借款记录" actionClass="com.huashi.action.admin.OffLineAction" actionMethod="updateStatus" />
+		
+		<item operation="查询单笔订单" actionClass="com.huashi.action.admin.SourceRecordAction" actionMethod="doSignle" />
+		<item operation="单个处理新生支付接口数据" actionClass="com.huashi.action.admin.SourceRecordAction" actionMethod="signleXszf" />
+		<item operation="批量处理处理新生支付接口" actionClass="com.huashi.action.admin.SourceRecordAction" actionMethod="comparisonXszf" />
+		<item operation="批量查询新生支付数据" actionClass="com.huashi.action.admin.SourceRecordAction" actionMethod="doSourceXszf" />
+		
+		<item operation="审核标" actionClass="com.huashi.action.admin.BorrowAction" actionMethod="update"> </item>
+		<item operation="后台修改标信息" actionClass="com.huashi.action.admin.BorrowAction" actionMethod="updateMess"> </item>
+		<item operation="撤回标" actionClass="com.huashi.action.admin.BorrowAction" actionMethod="withdraw"> </item>
+		
+		<item operation="提现审核" actionClass="com.huashi.action.admin.AccountCashAction" actionMethod="update"> </item>
+		
+		<item operation="导入充值记录数据" actionClass="com.huashi.action.admin.TemporaryAction" actionMethod="save"> </item>
+		<item operation="审核充值记录通过" actionClass="com.huashi.action.admin.TemporaryAction" actionMethod="ajaxPass"> </item>
+		<item operation="审核充值记录拒绝" actionClass="com.huashi.action.admin.TemporaryAction" actionMethod="ajaxRefuse"> </item>
+		<item operation="保存审核后充值记录" actionClass="com.huashi.action.admin.TemporaryAction" actionMethod="ajaxMigrate"> </item>
+		<item operation="处理提现记录时，审核过往充值记录" actionClass="com.huashi.action.admin.TemporaryAction" actionMethod="ajaxReview"> </item>
+		
+		<item operation="更新系统设置" actionClass="com.huashi.action.admin.SettingAction" actionMethod="update"> </item>
+		
+		
+	</logConfig> -->
+</shopxx>

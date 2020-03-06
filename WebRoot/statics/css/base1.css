@@ -1,0 +1,40 @@
+
+.slide {
+    overflow: hidden;
+    position: relative;
+}
+.slidePic {
+    height: 100%;
+    width: 100%;
+}
+.slidePic a {
+    display: block;
+    height: 100%;
+}
+.slideItem {
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    z-index: 10;
+}
+.slideItem li {
+    background: url("../img/ic_slide.png") no-repeat scroll -2px -2px transparent;
+    cursor: pointer;
+    float: left;
+    height: 11px;
+    margin-left: 3px;
+    overflow: hidden;
+    text-indent: -10000px;
+    width: 11px;
+}
+.slideItem li.on {
+    background-position: -2px -17px;
+}
+
+
+
+
+
+
+
+

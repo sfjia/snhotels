@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+.slide{height:500px;width:100%;margin:0 auto}
+.slideItem{top:330px;right:500px;}
+.slidePic a{display:block;height:100%}
+.slideItem{position:absolute;z-index:10;top:460px;overflow:hidden;right:50%}
+.slideItem li{background:url(../img/ic_slide.png) -2px -2px no-repeat;width:11px;height:11px;margin-left:3px;overflow:hidden;cursor:pointer;text-indent:-10000px;float:left}
+.slideItem li.on{background-position:-2px -17px}
+

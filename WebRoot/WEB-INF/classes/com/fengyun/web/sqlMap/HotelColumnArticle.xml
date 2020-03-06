@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelColumnArticle">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelColumnArticle" parameterType = "java.lang.Integer">
+		select t.*,c.column_name column_name from fy_ws_hotel_column_article t left join fy_ws_hotel_column c on
+    	t.column_id = c.id where t.id=#{id}
+	</select>
+	<select id="queryByMap" resultType ="com.fengyun.web.model.HotelColumnArticle" parameterType = "java.util.Map">
+		select t.*,c.column_name column_name from fy_ws_hotel_column_article t left join fy_ws_hotel_column c on
+    	t.column_id = c.id 
+    	<include refid="queryWhere"/>
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelColumnArticle" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_column_article t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_column_article t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="columnId != null">and t.column_id = #{columnId} </if>
+			<if test="columnCode != null">and t.column_code = #{columnCode} </if>
+			<if test="hotelCode != null">and t.hotel_code = #{hotelCode} </if>
+			<if test="articleTitle != null">and t.article_title = #{articleTitle} </if>
+			<if test="articleImage != null">and t.article_image = #{articleImage} </if>
+			<if test="articleImage1 != null">and t.article_image1 = #{articleImage1} </if>
+			<if test="articleImage2 != null">and t.article_image2 = #{articleImage2} </if>
+			<if test="articleImage3 != null">and t.article_image3 = #{articleImage3} </if>
+			<if test="articleImage4 != null">and t.article_image4 = #{articleImage4} </if>
+			<if test="articleNoteShow != null">and t.article_note_show = #{articleNoteShow} </if>
+			<if test="articleNoteHide != null">and t.article_note_hide = #{articleNoteHide} </if>
+			<if test="articleAttach != null">and t.article_attach = #{articleAttach} </if>
+			<if test="language != null">and t.language = #{language} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelColumnArticle" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_column_article(
+			<if test="columnId != null">column_id, </if>
+			<if test="columnCode != null">column_code, </if>
+			<if test="hotelCode != null">hotel_code, </if>
+			<if test="articleTitle != null">article_title, </if>
+			<if test="articleImage != null">article_image, </if>
+			<if test="articleImage1 != null">article_image1, </if>
+			<if test="articleImage2 != null">article_image2, </if>
+			<if test="articleImage3 != null">article_image3, </if>
+			<if test="articleImage4 != null">article_image4, </if>
+			<if test="articleNoteShow != null">article_note_show, </if>
+			<if test="articleNoteHide != null">article_note_hide, </if>
+			<if test="articleAttach != null">article_attach, </if>
+			<if test="language != null">language, </if>
+			<if test="status != null">status, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="sort != null">sort, </if>
+			create_date
+		)values(
+			<if test="columnId != null">#{ columnId}, </if>
+			<if test="columnCode != null">#{ columnCode}, </if>
+			<if test="hotelCode != null">#{ hotelCode}, </if>
+			<if test="articleTitle != null">#{ articleTitle}, </if>
+			<if test="articleImage != null">#{ articleImage}, </if>
+			<if test="articleImage1 != null">#{ articleImage1}, </if>
+			<if test="articleImage2 != null">#{ articleImage2}, </if>
+			<if test="articleImage3 != null">#{ articleImage3}, </if>
+			<if test="articleImage4 != null">#{ articleImage4}, </if>
+			<if test="articleNoteShow != null">#{ articleNoteShow}, </if>
+			<if test="articleNoteHide != null">#{ articleNoteHide}, </if>
+			<if test="articleAttach != null">#{ articleAttach}, </if>
+			<if test="language != null">#{ language}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelColumnArticle" >
+		update
+			fy_ws_hotel_column_article
+		<set>
+			<if test="columnId != null">column_id = #{columnId},</if>
+			<if test="columnCode != null">column_code = #{columnCode},</if>
+			<if test="hotelCode != null">hotel_code = #{hotelCode},</if>
+			<if test="articleTitle != null">article_title = #{articleTitle},</if>
+			<if test="articleImage != null">article_image = #{articleImage},</if>
+			<if test="articleImage1 != null">article_image1 = #{articleImage1},</if>
+			<if test="articleImage2 != null">article_image2 = #{articleImage2},</if>
+			<if test="articleImage3 != null">article_image3 = #{articleImage3},</if>
+			<if test="articleImage4 != null">article_image4 = #{articleImage4},</if>
+			<if test="articleNoteShow != null">article_note_show = #{articleNoteShow},</if>
+			<if test="articleNoteHide != null">article_note_hide = #{articleNoteHide},</if>
+			<if test="articleAttach != null">article_attach = #{articleAttach},</if>
+			<if test="language != null">language = #{language},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="sort != null">sort = #{sort},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

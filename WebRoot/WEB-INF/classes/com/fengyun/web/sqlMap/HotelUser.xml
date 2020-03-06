@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelUser">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelUser" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_hotel_user t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelUser" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_user t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	<select id="queryListByObject" resultType="com.fengyun.web.model.HotelUser"   parameterType="com.fengyun.web.model.HotelUser">
+		select t.* from fy_ws_hotel_user t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="regQuery" resultType="com.fengyun.web.model.HotelUser" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_user t where 
+			<if test="webusername != null">t.webusername = #{webusername} </if>
+			<if test="realname != null">and t.realname = #{realname} </if>
+			<if test="email != null">and t.email = #{email} </if>
+			<if test="phone != null">and t.phone = #{phone} </if>
+			<if test="idno != null">and t.idno = #{idno} </if>
+			<if test="cardno != null">and t.cardno = #{cardno} </if>
+		
+	</select>
+	
+	
+	<select id="loginQuery" resultType="com.fengyun.web.model.HotelUser" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_user t where (t.webusername = #{username} or t.email = #{username} or t.phone = #{username} or t.cardno = #{username} )and t.password = #{password}
+	</select>
+	
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_user t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="webusername != null">and t.webusername = #{webusername} </if>
+			<if test="webusernameEn != null">and t.webusername_en = #{webusernameEn} </if>
+			<if test="firstname != null">and t.firstname = #{firstname} </if>
+			<if test="firstnamePy != null">and t.firstnamePy = #{firstnamePy} </if>
+			<if test="lastname != null">and t.lastname = #{lastname} </if>
+			<if test="lastnamePy != null">and t.lastnamePy = #{lastnamePy} </if>
+			<if test="password != null">and t.password = #{password} </if>
+			<if test="realname != null">and t.realname = #{realname} </if>
+			<if test="realnameEn != null">and t.realname_en = #{realnameEn} </if>
+			<if test="email != null">and t.email = #{email} </if>
+			<if test="phone != null">and t.phone = #{phone} </if>
+			<if test="birthday != null">and t.birthday like concat('%____-',#{birthday},'__%')</if>
+			<if test="sex != null">and t.sex = #{sex} </if>
+			<if test="idtype != null">and t.idtype = #{idtype} </if>
+			<if test="idtypeEn != null">and t.idtype_en = #{idtypeEn} </if>
+			<if test="idno != null">and t.idno = #{idno} </if>
+			<if test="cardno != null">and t.cardno = #{cardno} </if>
+			<if test="qq != null">and t.qq = #{qq} </if>
+			<if test="nationality != null">and t.nationality = #{nationality} </if>
+			<if test="nationalityEn != null">and t.nationality_en = #{nationalityEn} </if>
+			<if test="province != null">and t.province = #{province} </if>
+			<if test="provinceEn != null">and t.province_en = #{provinceEn} </if>
+			<if test="city != null">and t.city = #{city} </if>
+			<if test="area != null">and t.area = #{area} </if>
+			<if test="areaStore != null">and t.area_store = #{areaStore} </if>
+			<if test="address != null">and t.address = #{address} </if>
+			<if test="addressEn != null">and t.address_en = #{addressEn} </if>
+			<if test="company != null">and t.company = #{company} </if>
+			<if test="compayEn != null">and t.compay_en = #{compayEn} </if>
+			<if test="position != null">and t.position = #{position} </if>
+			<if test="positonEn != null">and t.positon_en = #{positonEn} </if>
+			<if test="telephone != null">and t.telephone = #{telephone} </if>
+			<if test="language != null">and t.language = #{language} </if>
+			<if test="fax != null">and t.fax = #{fax} </if>
+			<if test="postcode != null">and t.postcode = #{postcode} </if>
+			<if test="level != null">and t.level = #{level} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="idu != null">and t.id != #{idu} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelUser" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_user(
+			<if test="webusername != null">webusername, </if>
+			<if test="webusernameEn != null">webusername_en, </if>
+			<if test="firstname != null">firstname, </if>
+			<if test="firstnamePy != null">firstname_py, </if>
+			<if test="lastname != null">lastname, </if>
+			<if test="lastnamePy != null">lastname_py, </if>
+			<if test="password != null">password, </if>
+			<if test="realname != null">realname, </if>
+			<if test="realnameEn != null">realname_en, </if>
+			<if test="email != null">email, </if>
+			<if test="phone != null">phone, </if>
+			<if test="birthday != null">birthday, </if>
+			<if test="sex != null">sex, </if>
+			<if test="idtype != null">idtype, </if>
+			<if test="idtypeEn != null">idtype_en, </if>
+			<if test="idno != null">idno, </if>
+			<if test="cardno != null">cardno, </if>
+			<if test="qq != null">qq, </if>
+			<if test="nationality != null">nationality, </if>
+			<if test="nationalityEn != null">nationality_en, </if>
+			<if test="province != null">province, </if>
+			<if test="provinceEn != null">province_en, </if>
+			<if test="city != null">city,</if>
+			<if test="area != null">area,</if>
+			<if test="areaStore != null">area_store,</if>
+			<if test="address != null">address, </if>
+			<if test="addressEn != null">address_en, </if>
+			<if test="company != null">company, </if>
+			<if test="compayEn != null">compay_en, </if>
+			<if test="position != null">position, </if>
+			<if test="positonEn != null">positon_en, </if>
+			<if test="telephone != null">telephone, </if>
+			<if test="language != null">language, </if>
+			<if test="fax != null">fax, </if>
+			<if test="postcode != null">postcode, </if>
+			<if test="level != null">level, </if>
+			create_date, 
+			modify_date 
+		)values(
+			<if test="webusername != null">#{ webusername}, </if>
+			<if test="webusernameEn != null">#{ webusernameEn}, </if>
+			<if test="firstname != null">#{firstname}, </if>
+			<if test="firstnamePy != null">#{firstnamePy}, </if>
+			<if test="lastname != null">#{lastname}, </if>
+			<if test="lastnamePy != null">#{lastnamePy}, </if>
+			<if test="password != null">#{password}, </if>
+			<if test="realname != null">#{ realname}, </if>
+			<if test="realnameEn != null">#{ realnameEn}, </if>
+			<if test="email != null">#{ email}, </if>
+			<if test="phone != null">#{ phone}, </if>
+			<if test="birthday != null">#{ birthday}, </if>
+			<if test="sex != null">#{ sex}, </if>
+			<if test="idtype != null">#{ idtype}, </if>
+			<if test="idtypeEn != null">#{ idtypeEn}, </if>
+			<if test="idno != null">#{ idno}, </if>
+			<if test="cardno != null">#{ cardno}, </if>
+			<if test="qq != null">#{qq}, </if>
+			<if test="nationality != null">#{ nationality}, </if>
+			<if test="nationalityEn != null">#{ nationalityEn}, </if>
+			<if test="province != null">#{ province}, </if>
+			<if test="provinceEn != null">#{ provinceEn}, </if>
+			<if test="city != null">#{city},</if>
+			<if test="area != null">#{area},</if>
+			<if test="areaStore != null">#{areaStore},</if>
+			<if test="address != null">#{ address}, </if>
+			<if test="addressEn != null">#{ addressEn}, </if>
+			<if test="company != null">#{ company}, </if>
+			<if test="compayEn != null">#{ compayEn}, </if>
+			<if test="position != null">#{ position}, </if>
+			<if test="positonEn != null">#{ positonEn}, </if>
+			<if test="telephone != null">#{ telephone}, </if>
+			<if test="language != null">#{ language}, </if>
+			<if test="fax != null">#{ fax}, </if>
+			<if test="postcode != null">#{ postcode}, </if>
+			<if test="level != null">#{ level}, </if>
+			now(), 
+			now() 
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelUser" >
+		update
+			fy_ws_hotel_user
+		<set>
+			<if test="webusername != null">webusername = #{webusername},</if>
+			<if test="webusernameEn != null">webusername_en = #{webusernameEn},</if>
+			<if test="firstname != null">firstname = #{firstname}, </if>
+			<if test="firstnamePy != null">firstname_py = #{firstnamePy}, </if>
+			<if test="lastname != null">lastname = #{lastname}, </if>
+			<if test="lastnamePy != null">lastname_py = #{lastnamePy}, </if>
+			<if test="password != null">password=#{password}, </if>
+			<if test="realname != null">realname = #{realname},</if>
+			<if test="realnameEn != null">realname_en = #{realnameEn},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="phone != null">phone = #{phone},</if>
+			<if test="birthday != null">birthday = #{birthday},</if>
+			<if test="sex != null">sex = #{sex},</if>
+			<if test="idtype != null">idtype = #{idtype},</if>
+			<if test="idtypeEn != null">idtype_en = #{idtypeEn},</if>
+			<if test="idno != null">idno = #{idno},</if>
+			<if test="cardno != null">cardno = #{cardno},</if>
+			<if test="qq != null">qq = #{qq}, </if>
+			<if test="nationality != null">nationality = #{nationality},</if>
+			<if test="nationalityEn != null">nationality_en = #{nationalityEn},</if>
+			<if test="province != null">province = #{province},</if>
+			<if test="provinceEn != null">province_en = #{provinceEn},</if>
+			<if test="city != null">city = #{city},</if>
+			<if test="area != null">area = #{area},</if>
+			<if test="areaStore != null">area_store = #{areaStore},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="addressEn != null">address_en = #{addressEn},</if>
+			<if test="company != null">company = #{company},</if>
+			<if test="compayEn != null">compay_en = #{compayEn},</if>
+			<if test="position != null">position = #{position},</if>
+			<if test="positonEn != null">positon_en = #{positonEn},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="language != null">language = #{language},</if>
+			<if test="fax != null">fax = #{fax},</if>
+			<if test="postcode != null">postcode = #{postcode},</if>
+			<if test="level != null">level = #{level},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelCity">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelCity" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_hotel_city t where t.id=#{id}
+	</select>
+	
+	<select id="queryByMap" resultType="com.fengyun.web.model.HotelCity" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_city t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelCity" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_city t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	<select id="queryAllList" resultType="com.fengyun.web.model.HotelCity" >
+		select t.* from fy_ws_hotel_city t 
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_city t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="code != null">and t.code = #{code} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="nameEn != null">and t.name_en = #{nameEn} </if>
+			<if test="namePy != null">and t.name_py = #{namePy} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelCity" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_city(
+			<if test="code != null">code, </if>
+			<if test="name != null">name, </if>
+			<if test="nameEn != null">name_en, </if>
+			<if test="namePy != null">name_py, </if>
+			<if test="status != null">status, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="sort != null">sort, </if>
+			create_date
+		)values(
+			<if test="code != null">#{ code}, </if>
+			<if test="name != null">#{ name}, </if>
+			<if test="nameEn != null">#{ nameEn}, </if>
+			<if test="namePy != null">#{ namePy}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelCity" >
+		update
+			fy_ws_hotel_city
+		<set>
+			<if test="code != null">code = #{code},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="nameEn != null">name_en = #{nameEn},</if>
+			<if test="namePy != null">name_py = #{namePy},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="sort != null">sort = #{sort},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

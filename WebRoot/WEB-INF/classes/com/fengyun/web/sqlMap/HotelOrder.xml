@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelOrder">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelOrder" parameterType = "java.lang.Integer">
+		select t.*,h.name as hotelname from fy_ws_hotel_order t left join fy_ws_hotel h on t.hotelcode = h.code where t.id=#{id}
+	</select>
+
+	<select id="queryByMap" resultType="com.fengyun.web.model.HotelOrder" parameterType="java.util.Map">
+		select t.*,h.name as hotelname from fy_ws_hotel_order t left join fy_ws_hotel h on t.hotelcode = h.code 
+		<include refid="queryWhere"/>
+	</select>
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelOrder" parameterType="java.util.Map">
+		select t.*,h.name as hotelname,h.mini_image as hotelImage ,u.webusername from fy_ws_hotel_order t left join fy_ws_hotel h on t.hotelcode = h.code left join fy_ws_hotel_user u on t.memberid = u.id
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	<select id="queryListByObject" resultType="com.fengyun.web.model.HotelOrder" parameterType="com.fengyun.web.model.HotelOrder">
+		select t.*,h.name as hotelname,u.webusername from fy_ws_hotel_order t left join fy_ws_hotel h on t.hotelcode = h.code left join fy_ws_hotel_user u on t.memberid = u.id
+		<include refid="queryWhere2"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_order t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere2">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="orderno != null">and t.orderno = #{orderno} </if>
+			<if test="memberid != null">and t.memberid = #{memberid} </if>
+			<if test="membertype != null">and t.membertype = #{membertype} </if>
+			<if test="hotelcode != null">and t.hotelcode = #{hotelcode} </if>
+			<if test="orderstatus != null">and t.orderstatus = #{orderstatus} </if>
+			<if test="roomtypecode != null">and t.roomtypecode = #{roomtypecode} </if>
+			<if test="actualprice != null">and t.actualprice = #{actualprice} </if>
+			<if test="roomqty != null">and t.roomqty = #{roomqty} </if>
+			<if test="arrivaldate != null">and t.arrivaldate = #{arrivaldate} </if>
+			<if test="leavedate != null">and t.leavedate = #{leavedate} </if>
+			<if test="customername != null">and t.customername = #{customername} </if>
+			<if test="customernameEn != null">and t.customername_en = #{customernameEn} </if>
+			<if test="child != null">and t.child = #{child} </if>
+			<if test="addbed != null">and t.addbed = #{addbed} </if>
+			<if test="cardno != null">and t.cardno = #{cardno} </if>
+			<if test="sex != null">and t.sex = #{sex} </if>
+			<if test="remark != null">and t.remark = #{remark} </if>
+			<if test="arrivaltime != null">and t.arrivaltime = #{arrivaltime} </if>
+			<if test="phone != null">and t.phone = #{phone} </if>
+			<if test="email != null">and t.email = #{email} </if>
+			<if test="paymentmode != null">and t.paymentmode = #{paymentmode} </if>
+			<if test="paymentbank != null">and t.paymentbank = #{paymentbank} </if>
+			<if test="paymentSn != null">and t.payment_sn = #{paymentSn} </if>
+			<if test="amount != null">and t.amount = #{amount} </if>
+			<if test="remarkStatus != null">and t.remark_status = #{remarkStatus} </if>
+			<if test="kfPoint != null">and t.kf_point = #{kfPoint} </if>
+			<if test="fwPoint != null">and t.fw_point = #{fwPoint} </if>
+			<if test="cyPoing != null">and t.cy_poing = #{cyPoing} </if>
+			<if test="klPoint != null">and t.kl_point = #{klPoint} </if>
+			<if test="roomRemark != null">and t.room_remark = #{roomRemark} </if>
+			<if test="shenDate != null">and t.shen_date = #{shenDate} </if>
+			<if test="reviewDate != null">and t.review_date = #{reviewDate} </if>
+			<if test="replyRemark != null">and t.reply_remark = #{replyRemark} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="creator != null">and t.creator = #{creator} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="modifier != null">and t.modifier = #{modifier} </if>
+		</where> 
+	</sql>
+	
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="orderno != null">and t.orderno = #{orderno} </if>
+			<if test="memberid != null">and t.memberid = #{memberid} </if>
+			<if test="membertype != null">and t.membertype = #{membertype} </if>
+			<if test="hotelcode != null">and t.hotelcode = #{hotelcode} </if>
+			<if test="orderstatus != null">and t.orderstatus = #{orderstatus} </if>
+			<if test="roomtypecode != null">and t.roomtypecode = #{roomtypecode} </if>
+			<if test="actualprice != null">and t.actualprice = #{actualprice} </if>
+			<if test="roomqty != null">and t.roomqty = #{roomqty} </if>
+			<if test="arrivaldate != null">and t.arrivaldate = #{arrivaldate} </if>
+			<if test="leavedate != null">and t.leavedate = #{leavedate} </if>
+			<if test="customername != null">and t.customername = #{customername} </if>
+			<if test="customernameEn != null">and t.customername_en = #{customernameEn} </if>
+			<if test="child != null">and t.child = #{child} </if>
+			<if test="addbed != null">and t.addbed = #{addbed} </if>
+			<if test="cardno != null">and t.sex = #{cardno} </if>
+			<if test="sex != null">and t.cardno = #{sex} </if>
+			<if test="remark != null">and t.remark = #{remark} </if>
+			<if test="sremark != null">and t.sremark = #{remark} </if>
+			<if test="arrivaltime != null">and t.cardno = #{arrivaltime} </if>
+			<if test="phone != null">and t.phone = #{phone} </if>
+			<if test="email != null">and t.email = #{email} </if>
+			<if test="paymentmode != null">and t.paymentmode = #{paymentmode} </if>
+			<if test="paymentbank != null">and t.paymentbank = #{paymentbank} </if>
+			<if test="paymentSn != null">and t.payment_sn = #{paymentSn} </if>
+			<if test="amount != null">and t.amount = #{amount} </if>
+			<if test="remarkStatus != null">and t.remark_status = #{remarkStatus} </if>
+			<if test="array != null">
+				and t.remark_status in 
+				<foreach item="item" index="index" collection="array"
+      				open="(" separator="," close=")">
+       	 			#{item}
+  				</foreach>
+			</if>
+			<if test="kfPoint != null">and t.kf_point = #{kfPoint} </if>
+			<if test="fwPoint != null">and t.fw_point = #{fwPoint} </if>
+			<if test="cyPoing != null">and t.cy_poing = #{cyPoing} </if>
+			<if test="klPoint != null">and t.kl_point = #{klPoint} </if>
+			<if test="roomRemark != null">and t.room_remark = #{roomRemark} </if>
+			<if test="shenDate != null">and t.shen_date = #{shenDate} </if>
+			<if test="reviewDate != null">and t.review_date = #{reviewDate} </if>
+			<if test="reviewSort != null">and t.review_sort = #{reviewSort} </if>
+			<if test="replyRemark != null">and t.reply_remark = #{replyRemark} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="filterStartTime != null">
+				<![CDATA[ and t.create_date >= #{filterStartTime}]]>  
+			</if>
+			<if test="filterEndTime != null">
+				<![CDATA[and t.create_date <= #{filterEndTime} ]]>  
+			</if>
+			<if test="creator != null">and t.creator = #{creator} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="modifier != null">and t.modifier = #{modifier} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelOrder" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_order(
+			<if test="orderno != null">orderno, </if>
+			<if test="memberid != null">memberid, </if>
+			<if test="membertype != null">membertype, </if>
+			<if test="hotelcode != null">hotelcode, </if>
+			<if test="orderstatus != null">orderstatus, </if>
+			<if test="roomtypecode != null">roomtypecode, </if>
+			<if test="roomtypename != null">roomtypename, </if>
+			<if test="actualprice != null">actualprice, </if>
+			<if test="roomqty != null">roomqty, </if>
+			<if test="arrivaldate != null">arrivaldate, </if>
+			<if test="leavedate != null">leavedate, </if>
+			<if test="customername != null">customername, </if>
+			<if test="customernameEn != null">customername_en, </if>
+			<if test="child != null">child, </if>
+			<if test="addbed != null">addbed, </if>
+			<if test="cardno != null">cardno, </if>
+			<if test="sex != null">sex, </if>
+			<if test="remark != null">remark, </if>
+			<if test="sremark != null">sremark, </if>
+			<if test="arrivaltime != null">arrivaltime, </if>
+			<if test="phone != null">phone, </if>
+			<if test="email != null">email, </if>
+			<if test="paymentmode != null">paymentmode, </if>
+			<if test="paymentbank != null">paymentbank, </if>
+			<if test="paymentSn != null">payment_sn, </if>
+			<if test="amount != null">amount, </if>
+			<if test="shenDate != null">shenDate,</if>
+			<if test="reviewDate != null">areviewDate, </if>
+			<if test="replyRemark != null">replyRemark, </if>
+			create_date, 
+			<if test="creator != null">creator, </if>
+			modify_date,
+			<if test="modifier != null">modifier </if>
+		)values(
+			<if test="orderno != null">#{ orderno}, </if>
+			<if test="memberid != null">#{ memberid}, </if>
+			<if test="membertype != null">#{ membertype}, </if>
+			<if test="hotelcode != null">#{ hotelcode}, </if>
+			<if test="orderstatus != null">#{ orderstatus}, </if>
+			<if test="roomtypecode != null">#{ roomtypecode}, </if>
+			<if test="roomtypename != null">#{ roomtypename}, </if>
+			<if test="actualprice != null">#{ actualprice}, </if>
+			<if test="roomqty != null">#{ roomqty}, </if>
+			<if test="arrivaldate != null">#{ arrivaldate}, </if>
+			<if test="leavedate != null">#{ leavedate}, </if>
+			<if test="customername != null">#{ customername}, </if>
+			<if test="customernameEn != null">#{ customernameEn}, </if>
+			<if test="child != null">#{ child}, </if>
+			<if test="addbed != null">#{ addbed}, </if>
+			<if test="cardno != null">#{ cardno}, </if>
+			<if test="sex != null">#{ sex}, </if>
+			<if test="remark != null">#{ remark}, </if>
+			<if test="sremark != null">#{ sremark}, </if>
+			<if test="arrivaltime != null">#{ arrivaltime}, </if>
+			<if test="phone != null">#{ phone}, </if>
+			<if test="email != null">#{ email}, </if>
+			<if test="paymentmode != null">#{ paymentmode}, </if>
+			<if test="paymentbank != null">#{ paymentbank}, </if>
+			<if test="paymentSn != null">#{ paymentSn}, </if>
+			<if test="amount != null">#{ amount}, </if>
+			<if test="shenDate != null">#{shenDate}, </if>
+			<if test="reviewDate != null">#{reviewDate}, </if>
+			<if test="replyRemark != null">#{replyRemark}, </if>
+			now(), 
+			<if test="creator != null">#{ creator}, </if>
+			now(),
+			<if test="modifier != null">#{ modifier} </if>
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelOrder" >
+		update
+			fy_ws_hotel_order
+		<set>
+			<if test="orderno != null">orderno = #{orderno},</if>
+			<if test="memberid != null">memberid = #{memberid},</if>
+			<if test="membertype != null">membertype = #{membertype},</if>
+			<if test="hotelcode != null">hotelcode = #{hotelcode},</if>
+			<if test="orderstatus != null">orderstatus = #{orderstatus},</if>
+			<if test="roomtypecode != null">roomtypecode = #{roomtypecode},</if>
+			<if test="roomtypename != null">roomtypename = #{ roomtypename}, </if>
+			<if test="actualprice != null">actualprice = #{actualprice},</if>
+			<if test="roomqty != null">roomqty = #{roomqty},</if>
+			<if test="arrivaldate != null">arrivaldate = #{arrivaldate},</if>
+			<if test="leavedate != null">leavedate = #{leavedate},</if>
+			<if test="customername != null">customername = #{customername},</if>
+			<if test="customernameEn != null">customername_en = #{customernameEn},</if>
+			<if test="child != null">child = #{child},</if>
+			<if test="addbed != null">addbed = #{addbed},</if>
+			<if test="cardno != null">cardno = #{cardno},</if>
+			<if test="sex != null">sex = #{ sex}, </if>
+			<if test="remark != null">remark = #{ remark}, </if>
+			<if test="sremark != null">sremark = #{ sremark}, </if>
+			<if test="arrivaltime != null">arrivaltime = #{ arrivaltime}, </if>
+			<if test="phone != null">phone = #{phone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="paymentmode != null">paymentmode = #{paymentmode},</if>
+			<if test="paymentbank != null">paymentbank = #{paymentbank},</if>
+			<if test="paymentSn != null">payment_sn = #{paymentSn},</if>
+			<if test="amount != null">amount = #{amount},</if>
+			<if test="remarkStatus != null">remark_status = #{remarkStatus},</if>
+			<if test="kfPoint != null">kf_point = #{kfPoint}, </if>
+			<if test="fwPoint != null">fw_point = #{fwPoint}, </if>
+			<if test="cyPoing != null">cy_poing = #{cyPoing}, </if>
+			<if test="klPoint != null">kl_point = #{klPoint}, </if>
+			<if test="roomRemark != null">room_remark = #{roomRemark}, </if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="shenDate != null">shen_date = #{shenDate}, </if>
+			<if test="reviewDate != null">review_date = #{reviewDate}, </if>
+			<if test="reviewSort != null">review_sort = #{reviewSort}, </if>
+			<if test="replyRemark != null">reply_remark = #{replyRemark}, </if>
+			<if test="creator != null">creator = #{creator},</if>
+			<if test="modifyDate != null">modify_date = now(),</if>
+			<if test="modifier != null">modifier = #{modifier}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="cancelOrderById" parameterType="java.lang.Integer" >
+			update fy_ws_hotel_order set orderstatus = 3 where id = #{id}
+	</update>
+</mapper>
+

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Room">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.Room" parameterType = "java.lang.Long">
+		select t.* from fy_ws_hotel_room t where t.id=#{id}
+	</select>
+	
+	<select id="queryListByObject" resultType="com.fengyun.web.model.Room" parameterType="com.fengyun.web.model.Room">
+		select t.* from fy_ws_hotel_room t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.Room" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_room t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_room t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="hotelCode != null">and t.hotel_code = #{hotelCode} </if>
+			<if test="roomCode != null">and t.room_code = #{roomCode} </if>
+			<if test="roomName != null">and t.room_name = #{roomName} </if>
+			<if test="roomDigestdWeb != null">and t.room_digestd_web = #{roomDigestdWeb} </if>
+			<if test="roomDigestdPad != null">and t.room_digestd_pad = #{roomDigestdPad} </if>
+			<if test="roomDigestdApp != null">and t.room_digestd_app = #{roomDigestdApp} </if>
+			<if test="roomDigestdWap != null">and t.room_digestd_wap = #{roomDigestdWap} </if>
+			<if test="roomArea != null">and t.room_area = #{roomArea} </if>
+			<if test="roomImageWeb != null">and t.room_image_web = #{roomImageWeb} </if>
+			<if test="roomImagePad != null">and t.room_image_pad = #{roomImagePad} </if>
+			<if test="roomImageApp != null">and t.room_image_app = #{roomImageApp} </if>
+			<if test="roomImageWap != null">and t.room_image_wap = #{roomImageWap} </if>
+			<if test="netStatus != null">and t.net_status = #{netStatus} </if>
+			<if test="showStatus != null">and t.show_status = #{showStatus} </if>
+			<if test="bathtubStatus != null">and t.bathtub_status = #{bathtubStatus} </if>
+			<if test="statusCode != null">and t.status_code = #{statusCode} </if>
+			<if test="statusCodeWeb != null">and t.status_code_web = #{statusCodeWeb} </if>
+			<if test="statusCodePad != null">and t.status_code_pad = #{statusCodePad} </if>
+			<if test="statusCodeApp != null">and t.status_code_app = #{statusCodeApp} </if>
+			<if test="statusCodeWap != null">and t.status_code_wap = #{statusCodeWap} </if>
+			<if test="createDatetime != null">and t.create_datetime = #{createDatetime} </if>
+			<if test="modifyDatetime != null">and t.modify_datetime = #{modifyDatetime} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+			<if test="linkUrl != null">and t.link_url = #{linkUrl} </if>
+			<if test="price != null">and t.price = #{price} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.Room" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_room(
+			<if test="hotelCode != null">hotel_code, </if>
+			<if test="roomCode != null">room_code, </if>
+			<if test="roomName != null">room_name, </if>
+			<if test="roomDigestdWeb != null">room_digestd_web,</if>
+			<if test="roomDigestdPad != null">room_digestd_pad, </if>
+			<if test="roomDigestdApp != null">room_digestd_app,  </if>
+			<if test="roomDigestdWap != null">room_digestd_wap,  </if>
+			<if test="roomArea != null">room_area,  </if>
+			<if test="roomImageWeb != null">room_image_web, </if>
+			<if test="roomImagePad != null">room_image_pad,</if>
+			<if test="roomImageApp != null">room_image_app,  </if>
+			<if test="roomImageWap != null">room_image_wap, </if>
+			<if test="netStatus != null">net_status, </if>
+			<if test="showStatus != null">show_status, </if>
+			<if test="bathtubStatus != null">bathtub_status, </if>
+			<if test="statusCode != null">status_code, </if>
+			<if test="statusCodeWeb != null">status_code_web, </if>
+			<if test="statusCodePad != null">status_code_pad, </if>
+			<if test="statusCodeApp != null">status_code_app,</if>
+			<if test="statusCodeWap != null">status_code_wap, </if>
+			<if test="modifyDatetime != null">modify_datetime, </if>
+			<if test="sort != null">sort, </if>
+			<if test="linkUrl != null">link_url, </if>
+			<if test="price != null">price,</if>
+			create_datetime
+		)values(
+			<if test="hotelCode != null">#{hotelCode}, </if>
+			<if test="roomCode != null"> #{roomCode}, </if>
+			<if test="roomName != null"> #{roomName}, </if>
+			<if test="roomDigestdWeb != null">#{roomDigestdWeb}, </if>
+			<if test="roomDigestdPad != null">#{roomDigestdPad}, </if>
+			<if test="roomDigestdApp != null">#{roomDigestdApp}, </if>
+			<if test="roomDigestdWap != null">#{roomDigestdWap}, </if>
+			<if test="roomArea != null">#{roomArea}, </if>
+			<if test="roomImageWeb != null">#{roomImageWeb}, </if>
+			<if test="roomImagePad != null">#{roomImagePad}, </if>
+			<if test="roomImageApp != null">#{roomImageApp}, </if>
+			<if test="roomImageWap != null">#{roomImageWap}, </if>
+			<if test="netStatus != null">#{netStatus}, </if>
+			<if test="showStatus != null">#{showStatus}, </if>
+			<if test="bathtubStatus != null">#{bathtubStatus}, </if>
+			<if test="statusCode != null">#{statusCode}, </if>
+			<if test="statusCodeWeb != null">#{statusCodeWeb}, </if>
+			<if test="statusCodePad != null">#{statusCodePad}, </if>
+			<if test="statusCodeApp != null">#{statusCodeApp}, </if>
+			<if test="statusCodeWap != null">#{statusCodeWap}, </if>
+			<if test="modifyDatetime != null">{modifyDatetime}, </if>
+			<if test="sort != null">#{sort}, </if>
+			<if test="linkUrl != null">#{linkUrl}, </if>
+			<if test="price != null">#{price},</if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.Room" >
+		update
+			fy_ws_hotel_room
+		<set>
+			<if test="hotelCode != null">hotel_code = #{hotelCode}, </if>
+			<if test="roomCode != null">room_code = #{roomCode}, </if>
+			<if test="roomName != null">room_name = #{roomName}, </if>
+			<if test="roomDigestdWeb != null">room_digestd_web = #{roomDigestdWeb}, </if>
+			<if test="roomDigestdPad != null">room_digestd_pad = #{roomDigestdPad}, </if>
+			<if test="roomDigestdApp != null">room_digestd_app = #{roomDigestdApp}, </if>
+			<if test="roomDigestdWap != null">room_digestd_wap = #{roomDigestdWap}, </if>
+			<if test="roomArea != null">room_area = #{roomArea}, </if>
+			<if test="roomImageWeb != null">room_image_web = #{roomImageWeb}, </if>
+			<if test="roomImagePad != null">room_image_pad = #{roomImagePad}, </if>
+			<if test="roomImageApp != null">room_image_app = #{roomImageApp}, </if>
+			<if test="roomImageWap != null">room_image_wap = #{roomImageWap}, </if>
+			<if test="netStatus != null">net_status = #{netStatus}, </if>
+			<if test="showStatus != null">show_status = #{showStatus}, </if>
+			<if test="bathtubStatus != null">bathtub_status = #{bathtubStatus}, </if>
+			<if test="statusCode != null">status_code = #{statusCode}, </if>
+			<if test="statusCodeWeb != null">status_code_web = #{statusCodeWeb}, </if>
+			<if test="statusCodePad != null">status_code_pad = #{statusCodePad}, </if>
+			<if test="statusCodeApp != null">status_code_app = #{statusCodeApp}, </if>
+			<if test="statusCodeWap != null">status_code_wap = #{statusCodeWap}, </if>
+			<if test="createDatetime != null">create_datetime = #{createDatetime}, </if>
+			<if test="sort != null">sort = #{sort}, </if>
+			<if test="linkUrl != null">link_url = #{linkUrl}, </if>
+			<if test="price != null">price = #{price}, </if>
+				modify_datetime = now()
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="deleteObjectById" parameterType="java.lang.Long" >
+		update fy_ws_hotel_room set status_code = 0 where id = #{id}
+	</update>
+	
+	<!-- <select id="getList"  resultType ="com.fengyun.web.model.Room" >
+		select 
+			* 
+		from 
+			fy_ws_hotel_room 
+	</select>  -->
+</mapper>
+

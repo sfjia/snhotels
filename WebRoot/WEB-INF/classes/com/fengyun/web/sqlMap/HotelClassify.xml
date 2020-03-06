@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelClassify">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelClassify" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_hotel_classify t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelClassify" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel_classify t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryListByObject" resultType="com.fengyun.web.model.HotelClassify"   parameterType="com.fengyun.web.model.HotelClassify">
+		select t.* from fy_ws_hotel_classify t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_classify t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="hotelCode != null">and t.hotel_code = #{hotelCode} </if>
+			<if test="hotelNameCn != null">and t.hotel_name_cn = #{hotelNameCn} </if>
+			<if test="hotelNameEn != null">and t.hotel_name_en = #{hotelNameEn} </if>
+			<if test="code != null">and t.code = #{code} </if>
+			<if test="nameCn != null">and t.name_cn = #{nameCn} </if>
+			<if test="nameEn != null">and t.name_en = #{nameEn} </if>
+			<if test="remarkCn != null">and t.remark_cn = #{remarkCn} </if>
+			<if test="remarkEn != null">and t.remark_en = #{remarkEn} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+			<if test="showLimit != null">and t.show_limit = #{showLimit} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelClassify" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_classify(
+			<if test="hotelCode != null">hotel_code, </if>
+			<if test="hotelNameCn != null">hotel_name_cn, </if>
+			<if test="hotelNameEn != null">hotel_name_en, </if>
+			<if test="code != null">code, </if>
+			<if test="nameCn != null">name_cn, </if>
+			<if test="nameEn != null">name_en, </if>
+			<if test="remarkCn != null">remark_cn, </if>
+			<if test="remarkEn != null">remark_en, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="status != null">status, </if>
+			<if test="sort != null">sort, </if>
+			<if test="showLimit != null">show_limit, </if>
+			create_date 
+		)values(
+			<if test="hotelCode != null">#{ hotelCode}, </if>
+			<if test="hotelNameCn != null">#{ hotelNameCn}, </if>
+			<if test="hotelNameEn != null">#{ hotelNameEn}, </if>
+			<if test="code != null">#{ code}, </if>
+			<if test="nameCn != null">#{ nameCn}, </if>
+			<if test="nameEn != null">#{ nameEn}, </if>
+			<if test="remarkCn != null">#{ remarkCn}, </if>
+			<if test="remarkEn != null">#{ remarkEn}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			<if test="showLimit != null">#{ showLimit}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelClassify" >
+		update
+			fy_ws_hotel_classify
+		<set>
+			<if test="hotelCode != null">hotel_code = #{hotelCode},</if>
+			<if test="hotelNameCn != null">hotel_name_cn = #{hotelNameCn},</if>
+			<if test="hotelNameEn != null">hotel_name_en = #{hotelNameEn},</if>
+			<if test="code != null">code = #{code},</if>
+			<if test="nameCn != null">name_cn = #{nameCn},</if>
+			<if test="nameEn != null">name_en = #{nameEn},</if>
+			<if test="remarkCn != null">remark_cn = #{remarkCn},</if>
+			<if test="remarkEn != null">remark_en = #{remarkEn},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="sort != null">sort = #{sort},</if>
+			<if test="showLimit != null">show_limit = #{showLimit},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="deleteObjectById" parameterType="java.lang.Long" >
+			update fy_ws_hotel_classify set status = 0 where id = #{id}
+	</update>
+</mapper>
+

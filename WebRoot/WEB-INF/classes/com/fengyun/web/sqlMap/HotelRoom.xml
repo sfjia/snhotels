@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HotelRoom">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.HotelRoom" parameterType = "java.lang.Integer">
+		select t.*,a.name hotel_name from fy_ws_hotel_room t left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code where t.id=#{id}
+	</select>
+	
+	<select id="queryByMap" resultType ="com.fengyun.web.model.HotelRoom" parameterType = "java.util.Map">
+		select t.*,a.name hotel_name from fy_ws_hotel_room t  left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code
+		<include refid="queryWhere"/>
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.HotelRoom" parameterType="java.util.Map">
+		select t.*,a.name hotel_name from fy_ws_hotel_room t  left join fy_ws_hotel_additive a on
+    	t.hotel_code = a.hotel_code
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel_room t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="hotelCode != null">and t.hotel_code = #{hotelCode} </if>
+			<if test="roomCode != null">and t.room_code = #{roomCode} </if>
+			<if test="roomName != null">and t.room_name = #{roomName} </if>
+			<if test="roomNameEn != null">and t.room_name_en = #{roomNameEn} </if>
+			<if test="roomImage != null">and t.room_image = #{roomImage} </if>
+			<if test="roomImage2 != null">and t.room_image2 = #{roomImage2} </if>
+			<if test="roomArea != null">and t.room_area = #{roomArea} </if>
+			<if test="roomFreeNet != null">and t.room_free_net = #{roomFreeNet} </if>
+			<if test="roomShower != null">and t.room_shower = #{roomShower} </if>
+			<if test="roomBreakfast != null">and t.room_breakfast = #{roomBreakfast} </if>
+			<if test="roomBathTup != null">and t.room_bath_tup = #{roomBathTup} </if>
+			<if test="roomBedType != null">and t.room_bed_type = #{roomBedType} </if>
+			<if test="roomBedTypeEn != null">and t.room_bed_type_en = #{roomBedTypeEn} </if>
+			<if test="roomFloor != null">and t.room_floor = #{roomFloor} </if>
+			<if test="roomFloorEn != null">and t.room_floor_en = #{roomFloorEn} </if>
+			<if test="roomBedWidth != null">and t.room_bed_width = #{roomBedWidth} </if>
+			<if test="roomBedWidthEn != null">and t.room_bed_width_en = #{roomBedWidthEn} </if>
+			<if test="roomBedAdd != null">and t.room_bed_add = #{roomBedAdd} </if>
+			<if test="roomBedAddEn != null">and t.room_bed_add_en = #{roomBedAddEn} </if>
+			<if test="roomSmokeless != null">and t.room_smokeless = #{roomSmokeless} </if>
+			<if test="roomSmokelessEn != null">and t.room_smokeless_en = #{roomSmokelessEn} </if>
+			<if test="roomLiveingMax != null">and t.room_liveing_max = #{roomLiveingMax} </if>
+			<if test="roomLiveingMaxEn != null">and t.room_liveing_max_en = #{roomLiveingMaxEn} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="maxBook != null">and t.max_book = #{maxBook} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+			<if test="roomNote != null">and t.room_note = #{roomNote} </if>
+			<if test="roomNoteEn != null">and t.room_note_en = #{roomNoteEn} </if>
+			<if test="maxBook != null">and t.max_book = #{maxBook} </if>
+		</where> 
+
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.HotelRoom" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel_room(
+			<if test="hotelCode != null">hotel_code, </if>
+			<if test="roomCode != null">room_code, </if>
+			<if test="roomName != null">room_name, </if>
+			<if test="roomNameEn != null">room_name_en, </if>
+			<if test="roomImage != null">room_image, </if>
+			<if test="roomImage2 != null">room_image2, </if>
+			<if test="roomArea != null">room_area, </if>
+			<if test="roomFreeNet != null">room_free_net, </if>
+			<if test="roomShower != null">room_shower, </if>
+			<if test="roomBreakfast != null">room_breakfast, </if>
+			<if test="roomBathTup != null">room_bath_tup, </if>
+			<if test="roomBedType != null">room_bed_type, </if>
+			<if test="roomBedTypeEn != null">room_bed_type_en, </if>
+			<if test="roomFloor != null">room_floor, </if>
+			<if test="roomFloorEn != null">room_floor_en, </if>
+			<if test="roomBedWidth != null">room_bed_width, </if>
+			<if test="roomBedWidthEn != null">room_bed_width_en, </if>
+			<if test="roomBedAdd != null">room_bed_add, </if>
+			<if test="roomBedAddEn != null">room_bed_add_en, </if>
+			<if test="roomSmokeless != null">room_smokeless, </if>
+			<if test="roomSmokelessEn != null">room_smokeless_en, </if>
+			<if test="roomLiveingMax != null">room_liveing_max, </if>
+			<if test="roomLiveingMaxEn != null">room_liveing_max_en, </if>
+			<if test="status != null">status, </if>
+			<if test="maxBook != null">max_book, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="sort != null">sort, </if>
+			<if test="roomNote != null">room_note, </if>
+			<if test="roomNoteEn != null">room_note_en, </if>
+			create_date
+		)values(
+			<if test="hotelCode != null">#{ hotelCode}, </if>
+			<if test="roomCode != null">#{ roomCode}, </if>
+			<if test="roomName != null">#{ roomName}, </if>
+			<if test="roomNameEn != null">#{ roomNameEn}, </if>
+			<if test="roomImage != null">#{ roomImage}, </if>
+			<if test="roomImage2 != null">#{ roomImage2}, </if>
+			<if test="roomArea != null">#{ roomArea}, </if>
+			<if test="roomFreeNet != null">#{ roomFreeNet}, </if>
+			<if test="roomShower != null">#{ roomShower}, </if>
+			<if test="roomBreakfast != null">#{ roomBreakfast}, </if>
+			<if test="roomBathTup != null">#{ roomBathTup}, </if>
+			<if test="roomBedType != null">#{ roomBedType}, </if>
+			<if test="roomBedTypeEn != null">#{ roomBedTypeEn}, </if>
+			<if test="roomFloor != null">#{ roomFloor}, </if>
+			<if test="roomFloorEn != null">#{ roomFloorEn}, </if>
+			<if test="roomBedWidth != null">#{ roomBedWidth}, </if>
+			<if test="roomBedWidthEn != null">#{ roomBedWidthEn}, </if>
+			<if test="roomBedAdd != null">#{ roomBedAdd}, </if>
+			<if test="roomBedAddEn != null">#{ roomBedAddEn}, </if>
+			<if test="roomSmokeless != null">#{ roomSmokeless}, </if>
+			<if test="roomSmokelessEn != null">#{ roomSmokelessEn}, </if>
+			<if test="roomLiveingMax != null">#{ roomLiveingMax}, </if>
+			<if test="roomLiveingMaxEn != null">#{ roomLiveingMaxEn}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="maxBook != null">#{maxBook}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="sort != null">#{sort}, </if>
+			<if test="roomNote != null">#{ roomNote}, </if>
+			<if test="roomNoteEn != null">#{ roomNoteEn}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.HotelRoom" >
+		update
+			fy_ws_hotel_room
+		<set>
+			<if test="hotelCode != null">hotel_code = #{hotelCode},</if>
+			<if test="roomCode != null">room_code = #{roomCode},</if>
+			<if test="roomName != null">room_name = #{roomName},</if>
+			<if test="roomNameEn != null">room_name_en = #{roomNameEn},</if>
+			<if test="roomImage != null">room_image = #{roomImage},</if>
+			<if test="roomImage2 != null">room_image2 = #{roomImage2},</if>
+			<if test="roomArea != null">room_area = #{roomArea},</if>
+			<if test="roomFreeNet != null">room_free_net = #{roomFreeNet},</if>
+			<if test="roomShower != null">room_shower = #{roomShower},</if>
+			<if test="roomBreakfast != null">room_breakfast = #{roomBreakfast},</if>
+			<if test="roomBathTup != null">room_bath_tup = #{roomBathTup},</if>
+			<if test="roomBedType != null">room_bed_type = #{roomBedType},</if>
+			<if test="roomBedTypeEn != null">room_bed_type_en = #{roomBedTypeEn},</if>
+			<if test="roomFloor != null">room_floor = #{roomFloor},</if>
+			<if test="roomFloorEn != null">room_floor_en = #{roomFloorEn},</if>
+			<if test="roomBedWidth != null">room_bed_width = #{roomBedWidth},</if>
+			<if test="roomBedWidthEn != null">room_bed_width_en = #{roomBedWidthEn},</if>
+			<if test="roomBedAdd != null">room_bed_add = #{roomBedAdd},</if>
+			<if test="roomBedAddEn != null">room_bed_add_en = #{roomBedAddEn},</if>
+			<if test="roomSmokeless != null">room_smokeless = #{roomSmokeless},</if>
+			<if test="roomSmokelessEn != null">room_smokeless_en = #{roomSmokelessEn},</if>
+			<if test="roomLiveingMax != null">room_liveing_max = #{roomLiveingMax},</if>
+			<if test="roomLiveingMaxEn != null">room_liveing_max_en = #{roomLiveingMaxEn},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="maxBook != null">max_book = #{maxBook}, </if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="sort != null">sort = #{sort},</if>
+			<if test="roomNote != null">room_note = #{roomNote},</if>
+			<if test="roomNoteEn != null">room_note_en = #{roomNoteEn},</if>
+			<if test="maxBook != null">max_book = #{maxBook}, </if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

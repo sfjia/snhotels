@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CommonContent">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.CommonContent" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_common_content t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.CommonContent" parameterType="java.util.Map">
+		select t.* from fy_ws_common_content t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="com.fengyun.web.model.CommonContent" parameterType="java.util.Map">
+		select count(*) from fy_ws_common_content t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="code != null">and t.code = #{code} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="contentWeb != null">and t.content_web = #{contentWeb} </if>
+			<if test="contentPad != null">and t.content_pad = #{contentPad} </if>
+			<if test="contentApp != null">and t.content_app = #{contentApp} </if>
+			<if test="contentWap != null">and t.content_wap = #{contentWap} </if>
+			<if test="statusCode != null">and t.status_code = #{statusCode} </if>
+			<if test="statusWeb != null">and t.status_web = #{statusWeb} </if>
+			<if test="statusPad != null">and t.status_pad = #{statusPad} </if>
+			<if test="statusApp != null">and t.status_app = #{statusApp} </if>
+			<if test="statusWap != null">and t.status_wap = #{statusWap} </if>
+			<if test="createDatetime != null">and t.create_datetime = #{createDatetime} </if>
+			<if test="modifyDatetime != null">and t.modify_datetime = #{modifyDatetime} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.CommonContent" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_common_content(
+			<if test="code != null">code, </if>
+			<if test="name != null">name, </if>
+			<if test="contentWeb != null">content_web, </if>
+			<if test="contentPad != null">content_pad, </if>
+			<if test="contentApp != null">content_app, </if>
+			<if test="contentWap != null">content_wap, </if>
+			<if test="statusCode != null">status_code, </if>
+			<if test="statusWeb != null">status_web, </if>
+			<if test="statusPad != null">status_pad, </if>
+			<if test="statusApp != null">status_app, </if>
+			<if test="statusWap != null">status_wap, </if>
+			<if test="modifyDatetime != null">modify_datetime, </if>
+			create_datetime
+		)values(
+			<if test="code != null">#{ code}, </if>
+			<if test="name != null">#{ name}, </if>
+			<if test="contentWeb != null">#{ contentWeb}, </if>
+			<if test="contentPad != null">#{ contentPad}, </if>
+			<if test="contentApp != null">#{ contentApp}, </if>
+			<if test="contentWap != null">#{ contentWap}, </if>
+			<if test="statusCode != null">#{ statusCode}, </if>
+			<if test="statusWeb != null">#{ statusWeb}, </if>
+			<if test="statusPad != null">#{ statusPad}, </if>
+			<if test="statusApp != null">#{ statusApp}, </if>
+			<if test="statusWap != null">#{ statusWap}, </if>
+			<if test="modifyDatetime != null">#{ modifyDatetime}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.CommonContent" >
+		update
+			fy_ws_common_content
+		<set>
+			<if test="code != null">code = #{code},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="contentWeb != null">content_web = #{contentWeb},</if>
+			<if test="contentPad != null">content_pad = #{contentPad},</if>
+			<if test="contentApp != null">content_app = #{contentApp},</if>
+			<if test="contentWap != null">content_wap = #{contentWap},</if>
+			<if test="statusCode != null">status_code = #{statusCode},</if>
+			<if test="statusWeb != null">status_web = #{statusWeb},</if>
+			<if test="statusPad != null">status_pad = #{statusPad},</if>
+			<if test="statusApp != null">status_app = #{statusApp},</if>
+			<if test="statusWap != null">status_wap = #{statusWap},</if>
+			<if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+				modify_datetime = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

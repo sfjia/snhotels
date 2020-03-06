@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Hotel">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.Hotel" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_hotel t where t.id=#{id}
+	</select>
+	
+	<select id="queryByMap" resultType="com.fengyun.web.model.Hotel" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+	<select id="queryListByMap" resultType="com.fengyun.web.model.Hotel" parameterType="java.util.Map">
+		select t.* from fy_ws_hotel t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_hotel t 
+		<include refid="queryWhere"/>
+	</select>
+
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="code != null">and t.code = #{code} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="nameEn != null">and t.name_en = #{nameEn} </if>
+			<if test="cityCode != null">and t.city_code = #{cityCode} </if>
+			<if test="starNb != null">and t.star_nb = #{starNb} </if>
+			<if test="address != null">and t.address = #{address} </if>
+			<if test="addressEn != null">and t.address_en = #{addressEn} </if>
+			<if test="postCode != null">and t.post_code = #{postCode} </if>
+			<if test="telPhone != null">and t.tel_phone = #{telPhone} </if>
+			<if test="faxPhone != null">and t.fax_phone = #{faxPhone} </if>
+			<if test="email != null">and t.email = #{email} </if>
+			<if test="typeCode != null">and t.type_code = #{typeCode} </if>
+			<if test="status != null">and t.status = #{status} </if>
+			<if test="website != null">and t.website = #{website} </if>
+			<if test="logoImage != null">and t.logo_image = #{logoImage} </if>
+			<if test="miniImage != null">and t.mini_image = #{miniImage} </if>
+			<if test="bigImage != null">and t.big_image = #{bigImage} </if>
+			<if test="mapLong != null">and t.map_long = #{mapLong} </if>
+			<if test="mapLat != null">and t.map_lat = #{mapLat} </if>
+			<if test="notext != null">and t.notext = #{notext} </if>
+			<if test="noteEn != null">and t.note_en = #{noteEn} </if>
+			<if test="sort != null">and t.sort = #{sort} </if>
+			<if test="createDate != null">and t.create_date = #{createDate} </if>
+			<if test="modifyDate != null">and t.modify_date = #{modifyDate} </if>
+			<if test="crsNote != null">and t.crs_note = #{crsNote} </if>
+			<if test="crsNoteEn != null">and t.crs_note_en = #{crsNoteEn} </if>
+			<if test="jian != null">and t.jian = #{jian} </if>
+			<if test="jianEn != null">and t.jian_en = #{jianEn} </if>
+			<if test="score != null">and t.score = #{score} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.Hotel" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_hotel(
+			<if test="code != null">code, </if>
+			<if test="name != null">name, </if>
+			<if test="nameEn != null">name_en, </if>
+			<if test="cityCode != null">city_code, </if>
+			<if test="starNb != null">star_nb, </if>
+			<if test="address != null">address, </if>
+			<if test="addressEn != null">address_en, </if>
+			<if test="postCode != null">post_code, </if>
+			<if test="telPhone != null">tel_phone, </if>
+			<if test="faxPhone != null">fax_phone, </if>
+			<if test="email != null">email, </if>
+			<if test="typeCode != null">type_code, </if>
+			<if test="status != null">status, </if>
+			<if test="website != null">website, </if>
+			<if test="logoImage != null">logo_image, </if>
+			<if test="miniImage != null">mini_image, </if>
+			<if test="bigImage != null">big_image, </if>
+			<if test="mapLong != null">map_long, </if>
+			<if test="mapLat != null">map_lat, </if>
+			<if test="notext != null">notext, </if>
+			<if test="noteEn != null">note_en, </if>
+			<if test="sort != null">sort, </if>
+			<if test="modifyDate != null">modify_date, </if>
+			<if test="crsNote != null">crs_note, </if>
+			<if test="crsNoteEn != null">crs_note_en, </if>
+			<if test="jian != null">jian, </if>
+			<if test="jianEn != null">jian_en, </if>
+			<if test="score != null">score, </if>
+			create_date
+		)values(
+			<if test="code != null">#{ code}, </if>
+			<if test="name != null">#{ name}, </if>
+			<if test="nameEn != null">#{ nameEn}, </if>
+			<if test="cityCode != null">#{ cityCode}, </if>
+			<if test="starNb != null">#{ starNb}, </if>
+			<if test="address != null">#{ address}, </if>
+			<if test="addressEn != null">#{ addressEn}, </if>
+			<if test="postCode != null">#{ postCode}, </if>
+			<if test="telPhone != null">#{ telPhone}, </if>
+			<if test="faxPhone != null">#{ faxPhone}, </if>
+			<if test="email != null">#{ email}, </if>
+			<if test="typeCode != null">#{ typeCode}, </if>
+			<if test="status != null">#{ status}, </if>
+			<if test="website != null">#{ website}, </if>
+			<if test="logoImage != null">#{ logoImage}, </if>
+			<if test="miniImage != null">#{ miniImage}, </if>
+			<if test="bigImage != null">#{ bigImage}, </if>
+			<if test="mapLong != null">#{ mapLong}, </if>
+			<if test="mapLat != null">#{ mapLat}, </if>
+			<if test="notext != null">#{ notext}, </if>
+			<if test="noteEn != null">#{ noteEn}, </if>
+			<if test="sort != null">#{ sort}, </if>
+			<if test="modifyDate != null">#{ modifyDate}, </if>
+			<if test="crsNote != null">#{ crsNote}, </if>
+			<if test="crsNoteEn != null">#{ crsNoteEn}, </if>
+			<if test="jian != null">#{ jian}, </if>
+			<if test="jianEn != null">#{jianEn}, </if>
+			<if test="score != null">#{score}, </if>
+			now()
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.Hotel" >
+		update
+			fy_ws_hotel
+		<set>
+			<if test="code != null">code = #{code},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="nameEn != null">name_en = #{nameEn},</if>
+			<if test="cityCode != null">city_code = #{cityCode},</if>
+			<if test="starNb != null">star_nb = #{starNb},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="addressEn != null">address_en = #{addressEn},</if>
+			<if test="postCode != null">post_code = #{postCode},</if>
+			<if test="telPhone != null">tel_phone = #{telPhone},</if>
+			<if test="faxPhone != null">fax_phone = #{faxPhone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="typeCode != null">type_code = #{typeCode},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="website != null">website = #{website},</if>
+			<if test="logoImage != null">logo_image = #{logoImage},</if>
+			<if test="miniImage != null">mini_image = #{miniImage},</if>
+			<if test="bigImage != null">big_image = #{bigImage},</if>
+			<if test="mapLong != null">map_long = #{mapLong},</if>
+			<if test="mapLat != null">map_lat = #{mapLat},</if>
+			<if test="notext != null">notext = #{notext},</if>
+			<if test="noteEn != null">note_en = #{noteEn},</if>
+			<if test="sort != null">sort = #{sort},</if>
+			<if test="createDate != null">create_date = #{createDate},</if>
+			<if test="crsNote != null">crs_note = #{crsNote},</if>
+			<if test="crsNoteEn != null">crs_note_en = #{crsNoteEn},</if>
+			<if test="jian != null">jian = #{jian},</if>
+			<if test="jianEn != null">jian_en = #{jianEn},</if>
+			<if test="score != null">score = #{score},</if>
+				modify_date = now()
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
+

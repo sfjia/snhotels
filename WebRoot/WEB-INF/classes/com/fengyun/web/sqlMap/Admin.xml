@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Admin">
+
+	<select id="queryById" resultType ="com.fengyun.web.model.Admin" parameterType = "java.lang.Integer">
+		select t.* from fy_ws_admin t where t.id=#{id}
+	</select>
+
+	<select id="queryListByMap" resultType="com.fengyun.web.model.Admin" parameterType="java.util.Map">
+		select t.* from fy_ws_admin t 
+		<include refid="queryWhere"/>
+		<include refid="queryOrder"/>
+		<include refid="queryLimit"/>
+	</select>
+
+	<select id="queryCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) from fy_ws_admin t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<select id="queryListByObject" resultType="com.fengyun.web.model.Admin"   parameterType="com.fengyun.web.model.Admin">
+		select t.* from fy_ws_admin t 
+		<include refid="queryWhere"/>
+	</select>
+	
+	<sql id="queryWhere">
+		<where> 
+			<if test="id != null">and t.id = #{id} </if>
+			<if test="department != null">and t.department = #{department} </if>
+			<if test="email != null">and t.email = #{email} </if>
+			<if test="lockedDate != null">and t.locked_date = #{lockedDate} </if>
+			<if test="loginDate != null">and t.login_date = #{loginDate} </if>
+			<if test="loginFailureCount != null">and t.login_failure_count = #{loginFailureCount} </if>
+			<if test="loginIp != null">and t.login_ip = #{loginIp} </if>
+			<if test="name != null">and t.name = #{name} </if>
+			<if test="password != null">and t.password = #{password} </if>
+			<if test="username != null">and t.username = #{username} </if>
+			<if test="isAccountEnabled != null">and t.is_account_enabled = #{isAccountEnabled} </if>
+			<if test="isAccountLocked != null">and t.is_account_locked = #{isAccountLocked} </if>
+			<if test="isAccountExpired != null">and t.is_account_expired = #{isAccountExpired} </if>
+			<if test="isCredentialsExpired != null">and t.is_credentials_expired = #{isCredentialsExpired} </if>
+		</where> 
+	</sql>
+
+	<sql id="queryOrder">
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+	</sql>
+
+	<sql id="queryLimit">
+		<if test="pageStart != null and pageSize != null">
+			limit #{pageStart},#{pageSize}
+		</if>
+	</sql>
+
+	<insert id="insertObject" parameterType = "com.fengyun.web.model.Admin" useGeneratedKeys="true" keyProperty="id" >
+		insert into fy_ws_admin(
+			<if test="department != null">department, </if>
+			<if test="email != null">email, </if>
+			<if test="lockedDate != null">locked_date, </if>
+			<if test="loginDate != null">login_date, </if>
+			<if test="loginFailureCount != null">login_failure_count, </if>
+			<if test="loginIp != null">login_ip, </if>
+			<if test="name != null">name, </if>
+			<if test="password != null">password, </if>
+			<if test="username != null">username, </if>
+			<if test="isAccountEnabled != null">is_account_enabled, </if>
+			<if test="isAccountLocked != null">is_account_locked, </if>
+			<if test="isAccountExpired != null">is_account_expired, </if>
+			<if test="isCredentialsExpired != null">is_credentials_expired </if>
+		)values(
+			<if test="department != null">#{ department}, </if>
+			<if test="email != null">#{ email}, </if>
+			<if test="lockedDate != null">#{ lockedDate}, </if>
+			<if test="loginDate != null">#{ loginDate}, </if>
+			<if test="loginFailureCount != null">#{ loginFailureCount}, </if>
+			<if test="loginIp != null">#{ loginIp}, </if>
+			<if test="name != null">#{ name}, </if>
+			<if test="password != null">#{ password}, </if>
+			<if test="username != null">#{ username}, </if>
+			<if test="isAccountEnabled != null">#{ isAccountEnabled}, </if>
+			<if test="isAccountLocked != null">#{ isAccountLocked}, </if>
+			<if test="isAccountExpired != null">#{ isAccountExpired}, </if>
+			<if test="isCredentialsExpired != null">#{ isCredentialsExpired} </if>
+		)
+	</insert>
+
+	<update id="updateObject" parameterType="com.fengyun.web.model.Admin" >
+		update
+			fy_ws_admin
+		<set>
+			<if test="department != null">department = #{department},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="lockedDate != null">locked_date = #{lockedDate},</if>
+			<if test="loginDate != null">login_date = #{loginDate},</if>
+			<if test="loginFailureCount != null">login_failure_count = #{loginFailureCount},</if>
+			<if test="loginIp != null">login_ip = #{loginIp},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="password != null">password = #{password},</if>
+			<if test="username != null">username = #{username},</if>
+			<if test="isAccountEnabled != null">is_account_enabled = #{isAccountEnabled},</if>
+			<if test="isAccountLocked != null">is_account_locked = #{isAccountLocked},</if>
+			<if test="isAccountExpired != null">is_account_expired = #{isAccountExpired},</if>
+			<if test="isCredentialsExpired != null">is_credentials_expired = #{isCredentialsExpired}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="deleteObjectById" parameterType="java.lang.Integer" >
+			update fy_ws_admin set is_account_enabled = 0 where id = #{id}
+	</update>
+</mapper>
+
